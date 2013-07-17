@@ -225,3 +225,5 @@ Random Crap Ideas:
 - Find a large mug or stick or something and gain the power to "bash". If you
   try to "bash", the command raises an error about zsh being better. It kindly
   redirects you to zsh and then the prompt becomes random colors.
+
+- It's only mooing when you do it.

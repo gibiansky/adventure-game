@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import json
 
 from flask import Flask
@@ -9,12 +10,14 @@ from game import Game
 
 # Create Flask application.
 app = Flask(__name__)
-game = Game()
+game = Game("rooms")
+
 
 @app.route("/")
 def home():
     """Main application route."""
     return render_template('base.html')
+
 
 @app.route("/run", methods=['POST'])
 def run():
@@ -25,7 +28,8 @@ def run():
         'id': response.id,
         'command': response.command,
         'response': response.output,
-    }) 
+    })
+
 
 @app.route("/history", methods=['GET'])
 def history():

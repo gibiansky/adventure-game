@@ -101,7 +101,7 @@ class TextField extends Backbone.View
         char = String.fromCharCode(event.which)
 
         # Verify that this character is allowed.
-        printable = /^[a-zA-Z0-9 ]$/.test(char)
+        printable = /^[-a-zA-Z0-9 ]$/.test(char)
         if not printable then return
         
         # Split around the cursor, so we can insert the character.
@@ -191,7 +191,7 @@ class CommandView extends Backbone.View
 
         template = _.template $('#command-template').html(),
             command: @model.attributes.command
-            response: response
+            response: response.replace(/\n/g, "<br/>")
 
         @$el.html template
 
