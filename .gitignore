@@ -1,2 +1,5 @@
 *.pyc
 static/js/adventure.js
+**/*.hi
+**/*.o
+**/Main

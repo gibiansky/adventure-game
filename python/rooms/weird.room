@@ -1,0 +1,82 @@
+<enter>
+    You are in a room.
+
+    [gain: observe]
+    You have gained the power to '_'. Try typing that into your prompt.
+
+<power: observe>
+    [respond]
+    You notice that this room as well as this game is pretty terrible so far. But that's not all..
+
+    You also notice that you've completed the first challenge.  Your prize
+    is a hooloovoo.  Make sure to consult it later, as it may be quite
+    important.
+
+    The room you're in is a large circular room. It's church-sized. Really damn big.
+    There's several hundred doors along the edge of the room. You could probably try them all.
+
+    [gain: consult]
+
+<power: consult hooloovoo>
+        [respond]
+        Hello, I am a Hooloovoo. The only information known about me is what
+        color I am, so I guess that's all you can really hope to get out of me.
+        I'm almost as bad as the pikka bird. Anyway, you're on your own. 
+
+        By the way, you really should pick-a-bird. I'll give you one of your choice.
+        The right one will lead you onwards.
+
+        Also, my consultant fee is a few kilocents per millibit. I'll send you
+        an invoice in a bit. (That one will cost you, too.)
+              
+        [gain: become-totally-broke]
+        [gain: guess-color]
+        [gain: choose-bird]
+
+<power: consult *>
+        [respond]
+        I don't know what you're trying to consult.
+
+<power: consult>
+        [respond]
+        Who do you want to consult?
+
+<power: guess-color blue>
+    [respond]
+    Good job. I'm proud of you. Are you proud of yourself? Good. Me too.
+
+    You now possess the concept of blue.
+
+<power: guess-color green>
+    [respond]
+    Very close!
+
+    Just imagine something you could call green. What would normal people call it?
+
+<power: guess-color *>
+    [respond]
+    Nah, that's not quite it.
+
+<power: choose-bird hawk>
+    [respond]
+    Eh, sure, why not. That's an okay answer. Go ahead, take one.
+
+    You now possess a hawk. It somehow points towards one of the doors, suggesting you open that door.
+    [gain: open-door]
+
+<power: choose-bird *>
+    [respond]
+    That's a good bird, I guess. I'm not sure it's the one you want, though.
+    I'd go for this one.
+    "outline of a hawk"
+
+    [gain: request-hint]
+
+<power: open-door>
+    [respond]
+    You leave the room feeling incredibly self-satisfied. You've gotten
+    past the stupid room, now maybe this will become a bit less silly?
+
+    Ahahahahah. That was a good joke.
+
+    Be observant. 

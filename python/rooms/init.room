@@ -1,13 +1,18 @@
 <enter>
     You are in a strange room. 
 
-    /room description/
+    You'd really like to look around and find out what this room is like, but
+    for some reason you can't. In fact, you seem to be unable to do anything
+    except concentrate on the voice in your head, which is letting you know
+    that you're in a strange room, and that you'd like to look around but
+    can't.
 
     Are you okay with that?
 
     [gain: yes]
 
     You have learned to say '_'.
+    To use an ability, just type it into the prompt. Some abilities take arguments, but these don't.
 
     [gain: no]
     You have also learned to say '_'.

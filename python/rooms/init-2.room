@@ -1,0 +1,23 @@
+<enter>
+    As of now, you've been appointed to Head Scapegoat.
+
+    Do you accept this venerable position?
+
+<exit>
+    [lose: yes]
+    You have forgotten the word '_'. You feel a burst of joy, knowing that you have freed an extra several bytes of memory in your head now.
+    
+    [lose: no]
+    You have also forgotten the word '_'. Oh well. It was for chumps, anyway. And you're not a chump.
+
+<power: yes>
+    [respond]
+    Response duly noted. Heh.
+    [move-to: first]
+
+<power: no>
+    [choose-by-count: no]
+    - I'm can't let you do that, Da-- Tasha.
+    - YOU. SHALL. NOT. PASS. Erm. At least, not until you're feeling a bit more agreeable. Flee, you fools!
+    - right_answer = "yes"; me = &right_answer; // Pointing you towards the right answer.
+    - Sign. And here I was, thinking you were learning. Try again...
