@@ -5,8 +5,9 @@ import qualified Data.Map as Map
 
 data Game = Game {
   history :: [Command],
+  commandCounts :: Map.Map PowerName Int,
   currentRoom :: Room,
-  commandCounts :: Map.Map PowerName Int
+  rooms :: Map.Map String Room
   }
 type CommandId = Int  
 data CommandResponse = Maybe String

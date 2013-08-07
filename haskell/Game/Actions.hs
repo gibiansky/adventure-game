@@ -8,17 +8,31 @@ import Control.Applicative
 import Data.Aeson
 
 import Data.String.Utils
+import qualified Data.Map as Map
 
 noSuchCommand :: String
 noSuchCommand = "error: no matchinc command found. enqueue headpat."
 
-class ToJSON Command where
+instance ToJSON Command where
   toJSON (Command id cmd Nothing) = toJSON $ Command id cmd $ Just "No response."
   toJSON (Command id cmd (Just response)) = object ["id" .= id, "command" .= cmd, "response" .= response]
 
-class FromJSON Command where
+instance FromJSON Command where
   fromJSON (Object v) = Command <$> v .: "id" <*> v .: "command" <*> Nothing
   fromJSON _ = mzero
+
+initGame :: Map.Map String Room -> Game
+initGame rooms =
+  let initRoom@(Room enterActions _) = fromJust $ Map.lookup "init" rooms
+      game = Game {
+        history = [],
+        commandCounts = Map.empty,
+        currentRoom = fromJust $ Map.lookup "init" rooms,
+        rooms = rooms
+      }
+      (initOut, initializedGame) = runWriter $ foldM runAction game enterActions in
+    initializedGame { history = [Command 0 "start" $ Just initOut]}
+
 
 runCommand :: ByteString -> State Game ByteString
 runCommand commandStr = 
@@ -37,7 +51,7 @@ run command game =
   case find (powerMatches command) (powers game) of
        Nothing -> command { id = lastId game, response = noSuchCommand }
        Just (Power _ _ actions) -> 
-         let (cmdOutput, game') = runWriter $ forM runAction actions
+         let (cmdOutput, game') = runWriter $ foldM runAction game actions
              newCommand = command { id = lastId game, response = cmdOutput }
              game'' = game' {history = history game ++ [newCommand]} in
           game
@@ -62,6 +76,21 @@ runAction game command =
          tell $ replace "_" name dispstring
          let power = getPowerWithName name game
          return $ game {powers = power : powers game}
+       LosePower name dispstring -> do
+         tell $ replace "_" name dispstring
+         return $ game {powers = filter (/= name) $ powers game}
+       ChooseByCount name strlist -> do
+         let count = Map.findWithDefault 0 name $ commandCounts game
+         tell $ (concat.repeat strlist) !! count
+         return game
+       MoveToRoom name ->
+         case Map.lookup name $ rooms game of
+              Nothing -> error $ concat ["No room named ", name, " in room list!"]
+              Maybe room@(Room enterActions _) -> do
+                let game' = game { currentRoom = room }
+                forM_ runAction enterActions
+                return game'
+
 
 
 

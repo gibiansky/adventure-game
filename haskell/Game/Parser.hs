@@ -4,17 +4,16 @@ import Game.Types
 
 import Text.Parsec
 import Text.Parsec.String
-import Text.Parsec.Extra
 
 import Control.Monad
 
 import Debug.Trace
 
-parseRoom :: (String, String) -> Room
+parseRoom :: (String, String) -> (String, Room)
 parseRoom (contents, name) = 
   case parse room name contents of
        Left err -> error $ show err
-       Right parsed -> parsed
+       Right parsed -> (replace ".room" "" name, parsed)
 
 room :: Parser Room
 room = do
@@ -109,3 +108,6 @@ surround startChar endChar = between (char startChar) (char endChar)
 
 whitespace :: Parser String
 whitespace = many $ oneOf " \t\n"
+
+eol :: Parser ()
+eol = void $ string "\n"

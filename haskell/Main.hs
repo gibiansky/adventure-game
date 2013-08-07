@@ -29,15 +29,14 @@ main = quickHttpServe site
 site :: Snap ()
 site = do
   -- Get and parse all rooms 
-  game <- liftIO $ do
+  rooms <- liftIO $ do
     files <- getDirectoryContents gameDirectory
     let roomFiles = filter (endswith ".room") files
     contents <- mapM readFile roomfiles
     return $ Map.fromList $ zipWith parseRoom contents roomFiles
 
-  let initialState = initGame
   -- Create a mutable variable where we store all game state
-  state <- liftIO $ newMVar 10
+  state <- liftIO $ newMVar $ initGame rooms
 
   let useRoute route = do
       input <- getRequestBody
