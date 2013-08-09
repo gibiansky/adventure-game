@@ -20,12 +20,16 @@
 
 <power: yes>
     [choose-by-count: no]
-    - Good! You didn't really have a choice anyway.
+    {
+    Good! You didn't really have a choice anyway.
 
     You're learning.
-    - Good! I'm glad you're so agreeable today.
+    }
+    {
+    Good! I'm glad you're so agreeable today.
 
     Since you've started agreeing with me, why not continue?
+    }
 
     [respond]
     Let's try the next one.
@@ -33,7 +37,15 @@
 
 <power: no>
     [choose-by-count: no]
-    - You should really be more okay with it. Try again.
-    - Are you sure that's a good idea? It might lead to some serious cognitive dissonance issues later on. Try another answer.
-    - Maybe you should reconsider saying 'no' again and just say 'yes'.
-    - I'm not letting you go anywhere until you say yes. So just say 'yes'.
+    {
+    You should really be more okay with it. Try again.
+    }
+    {
+    Are you sure that's a good idea? It might lead to some serious cognitive dissonance issues later on. Try another answer.
+    }
+    {
+    Maybe you should reconsider saying 'no' again and just say 'yes'.
+    }
+    {
+    I'm not letting you go anywhere until you say yes. So just say 'yes'.
+    }

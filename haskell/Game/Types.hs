@@ -7,11 +7,13 @@ data Game = Game {
   history :: [Command],
   commandCounts :: Map.Map PowerName Int,
   currentRoom :: Room,
-  rooms :: Map.Map String Room
-  }
+  rooms :: Map.Map String Room,
+  powers :: [Power],
+  lastId :: Int
+  } deriving Show
 type CommandId = Int  
-data CommandResponse = Maybe String
-data Command = Command CommandId String CommandResponse
+type CommandResponse = Maybe String
+data Command = Command CommandId String CommandResponse deriving Show
 
 
 data Room = Room [Action] [Power]
@@ -29,10 +31,10 @@ type RoomName = String
 
 -- Debug instances
 instance Show Room where
-  show (Room actions powers) = 
+  show (Room actions pows) = 
     let header = "\nRoom:\n-----\n<enter>\n"
         enterSection = unlines $ map ("    " ++) $ lines . unlines $ map show actions
-        powerSection = unlines $ map show powers in
+        powerSection = unlines $ map show pows in
       header ++ enterSection ++ powerSection
 
 instance Show Action where

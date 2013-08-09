@@ -10,7 +10,8 @@ import qualified Data.Map as Map
 import Data.Aeson
 import Control.Concurrent.MVar
 import Control.Monad.IO.Class
-import Data.ByteString
+import Data.ByteString.Lazy hiding (filter, readFile, zipWith, map, putStrLn)
+import qualified Data.ByteString as Unlazy
 import Control.Monad.State
 
 import Snap.Extras.JSON
@@ -18,32 +19,41 @@ import Snap.Extras.JSON
 import System.Directory
 import Data.String.Utils
 
+import Game.Types
 import Game.Parser
+import Game.Actions
+
+import Debug.Trace
 
 gameDirectory :: FilePath
 gameDirectory = "rooms"
 
 main :: IO ()
-main = quickHttpServe site
-
-site :: Snap ()
-site = do
+main = do
   -- Get and parse all rooms 
-  rooms <- liftIO $ do
-    files <- getDirectoryContents gameDirectory
-    let roomFiles = filter (endswith ".room") files
-    contents <- mapM readFile roomfiles
-    return $ Map.fromList $ zipWith parseRoom contents roomFiles
+  files <- getDirectoryContents gameDirectory
+  let roomFiles = filter (endswith ".room") files
+      roomFilePaths = map ((gameDirectory ++ "/") ++) roomFiles
+  contents <- mapM readFile roomFilePaths
+  let rooms = Map.fromList $ zipWith parseRoom contents roomFiles
 
   -- Create a mutable variable where we store all game state
-  state <- liftIO $ newMVar $ initGame rooms
+  state <- newMVar $ initGame rooms
 
-  let useRoute route = do
-      input <- getRequestBody
-      value <- liftIO $ takeMVar state
-      let (response, newState) = runState (route input) value
-      liftIO $ putMVar state newState
-      writeBS response
+  quickHttpServe $ site state
+
+maxRequestSize = 10000
+
+site :: MVar Game -> Snap ()
+site state = do
+  let useRoute :: (ByteString -> State Game ByteString) -> Snap ()
+      useRoute route = do
+        input <- readRequestBody maxRequestSize
+        value <- liftIO $ takeMVar state
+        let (response, newState) = runState (route input) $ trace ("old " ++ (show $ lastId value)) value
+        liftIO $ putMVar state newState
+        liftIO $ print $ lastId newState
+        trace (show response) $ writeLBS response
 
   -- Show the main page at the top level
   ifTop mainPage <|>
@@ -55,10 +65,10 @@ site = do
    (route $ Map.assocs $ Map.map useRoute routes)
 
 -- JSON endpoints
-routes :: Map.Map ByteString (Bytestring -> State Int ByteString)
+routes :: Map.Map Unlazy.ByteString (ByteString -> State Game ByteString)
 routes = Map.fromList [
-    ("run", runCommand),
-    ("history", getHistory)
+    (toStrict "run", runCommand),
+    (toStrict "history", getHistory)
   ]
 
 mainPage :: Snap ()

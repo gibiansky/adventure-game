@@ -8,9 +8,10 @@ import Text.Parsec.String
 import Control.Monad
 
 import Debug.Trace
+import Data.String.Utils
 
-parseRoom :: (String, String) -> (String, Room)
-parseRoom (contents, name) = 
+parseRoom :: String -> String -> (String, Room)
+parseRoom contents name = 
   case parse room name contents of
        Left err -> error $ show err
        Right parsed -> (replace ".room" "" name, parsed)
