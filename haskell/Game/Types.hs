@@ -30,6 +30,9 @@ data Action = Print String |
 type PowerName = String
 type PowerArg = String
 data Power = Power PowerName [PowerArg] [Action]
+instance Eq Power where
+  Power powname1 powargs1 _ == Power powname2 powargs2 _ = 
+    (powargs1 == powargs2) && powname1 == powname2
 
 type RoomName = String
 
@@ -38,13 +41,14 @@ instance Show Room where
   show room = 
     let header = "\nRoom:\n-----\n<enter>\n"
         enterSection = unlines $ map ("    " ++) $ lines . unlines $ map show $ enterActions room
+        exitSection = unlines $ map ("    " ++) $ lines . unlines $ map show $ exitActions room
         powerSection = unlines $ map show $ powerDefinitions room in
-      header ++ enterSection ++ powerSection
+      header ++ enterSection ++ "\n<exit>\n" ++ exitSection ++ powerSection
 
 instance Show Action where
   show (Print str) = "[respond]\n" ++ str
   show (GainPower name str) = "[gain: " ++ name ++ "]\n" ++ str
-  show (LosePower name str) = "[gain: " ++ name ++ "]\n" ++ str
+  show (LosePower name str) = "[lose: " ++ name ++ "]\n" ++ str
   show (ChooseByCount name strs) = "[choose-by-count: " ++ name ++ "]\n" ++ options
     where 
       bracewrap val = "{\n" ++ val ++ "}\n"

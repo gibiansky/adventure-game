@@ -1,7 +1,9 @@
 enter {
-    As of now, you've been appointed to Head Scapegoat.
+    respond {
+      As of now, you've been appointed to Head Scapegoat.
 
-    Do you accept this venerable position?
+      Do you accept this venerable position?
+    }
 }
 
 exit {
@@ -15,7 +17,7 @@ exit {
 }
 
 power yes {
-    response {
+    respond {
         Response duly noted. Heh.
     }
 

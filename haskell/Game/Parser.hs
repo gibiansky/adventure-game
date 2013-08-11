@@ -7,7 +7,6 @@ import Text.Parsec.String
 
 import Control.Monad
 
-import Debug.Trace
 import Data.String.Utils
 import Data.Maybe
 
@@ -23,11 +22,11 @@ room = do
   whitespace
   maybeExit <- optionMaybe $ try $ namedActions "exit"
   whitespace
-  powers <- many $ try powerDeclaration
+  pows <- many $ try powerDeclaration
   whitespace
   eof
   let exitActs = fromMaybe [] maybeExit
-  return Room {enterActions = enters, exitActions = exitActs, powerDefinitions = powers}
+  return Room {enterActions = enters, exitActions = exitActs, powerDefinitions = pows}
 
 braced :: Parser a -> Parser a
 braced parser = do
@@ -57,39 +56,43 @@ action = whitespace >> choice actionParsers
   where
     actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser]
 
+gainParser :: Parser Action
 gainParser = do
-  name : [] <- actionSpec "gain" 1
+  name : [] <- actionSpec "gain"
   val <- stringAction
   return $ GainPower name val
 
+loseParser :: Parser Action
 loseParser = do
-  name : [] <- actionSpec "lose" 1
+  name : [] <- actionSpec "lose"
   val <- stringAction
   return $ LosePower name val
 
+moveToParser :: Parser Action
 moveToParser = do
-  name : [] <- actionSpec "move-to" 1
+  name : [] <- actionSpec "move-to"
   void stringAction
   return $ MoveToRoom name
 
+chooseByCountParser :: Parser Action
 chooseByCountParser = do
-  name : [] <- actionSpec "choose-by-count" 1
+  name : [] <- actionSpec "choose-by-count"
   responseChoices <- many1 stringAction
   return $ ChooseByCount name responseChoices
 
 respondParser :: Parser Action
 respondParser = do
-  actionSpec "respond" 0
+  actionSpec "respond"
   val <- stringAction
   return $ Print val
 
-stringAction :: Parser String
+stringAction ::  Parser String
 stringAction = do
   str <- braced $ many $ noneOf "}"
   return $ unlines $ map (unwords . words) $ lines str
 
-actionSpec :: String -> Int -> Parser [String]
-actionSpec name nargs = do
+actionSpec :: String -> Parser [String]
+actionSpec name = do
   string name
   args <- many $ noneOf "{"
   return $ words args
