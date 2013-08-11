@@ -9,7 +9,9 @@ data Game = Game {
   currentRoom :: Room,
   rooms :: Map.Map String Room,
   powers :: [Power],
-  lastId :: Int
+  lastId :: Int,
+  items :: [ItemName],
+  allEvents :: Map.Map EventName String
   } deriving Show
 type CommandId = Int  
 type CommandResponse = Maybe String
@@ -25,7 +27,13 @@ data Action = Print String |
               GainPower PowerName String |
               LosePower PowerName String |
               ChooseByCount PowerName [String] |
-              MoveToRoom String 
+              MoveToRoom String |
+              GainItem ItemName String |
+              LoseItem ItemName String |
+              IfPosessingItem String [Action] [Action] |
+              Event EventName
+type ItemName = String
+type EventName = String
 
 type PowerName = String
 type PowerArg = String

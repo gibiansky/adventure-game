@@ -1,5 +1,6 @@
 *.pyc
-static/js/adventure.js
+**/adventure.js
 **/*.hi
 **/*.o
 **/Main
+**/bwt

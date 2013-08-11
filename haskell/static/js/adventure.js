@@ -45,34 +45,49 @@
 
 
   Sidebar = (function(_super) {
-    var _this = this;
-
     __extends(Sidebar, _super);
 
     function Sidebar() {
       this.render = __bind(this.render, this);
+      this.update = __bind(this.update, this);
       this.initialize = __bind(this.initialize, this);
       _ref2 = Sidebar.__super__.constructor.apply(this, arguments);
       return _ref2;
     }
 
     Sidebar.prototype.initialize = function() {
-      return this.render();
+      return this.update();
     };
 
-    Sidebar.prototype.events = {
-      "click": function() {
-        return alert("Clicked!");
-      }
+    Sidebar.prototype.update = function() {
+      var _this = this;
+      console.log('Item request sent.');
+      return $.get("/items", function(data) {
+        console.log('Item request response received.');
+        _this.items = $.parseJSON(data);
+        return _this.render();
+      });
     };
 
     Sidebar.prototype.render = function() {
-      return this.$el.append('Goodbye!');
+      var _this = this;
+      console.log(this.items);
+      this.$el.html('');
+      console.log('Items:');
+      return _.each(this.items, function(item) {
+        var itemDiv;
+        console.log('Item:', item);
+        itemDiv = $(document.createElement('div'));
+        itemDiv.attr("class", "item");
+        itemDiv.html(item);
+        console.log(itemDiv);
+        return _this.$el.append(itemDiv);
+      });
     };
 
     return Sidebar;
 
-  }).call(this, Backbone.View);
+  })(Backbone.View);
 
   AdventureView = (function(_super) {
     __extends(AdventureView, _super);
@@ -160,6 +175,8 @@
       $(document).bind('keydown', this.keyDown);
       $(document).bind('keyup', this.keyUp);
       this.history = options.history;
+      this.items = options.items;
+      this.sidebar = options.sidebar;
       return this.render();
     };
 
@@ -170,7 +187,8 @@
         response: ""
       });
       this.history.add(command);
-      return command.save();
+      command.save();
+      return this.sidebar.update();
     };
 
     TextField.prototype.keyPress = function(event) {
@@ -301,7 +319,8 @@
     });
     textField = new TextField({
       el: adventureView.textEntry,
-      history: history
+      history: history,
+      sidebar: sidebarView
     });
     return history.fetch({
       reset: true

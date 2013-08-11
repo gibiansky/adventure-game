@@ -1,40 +1,45 @@
-<enter>
+enter {
+  respond {
     You find yourself in another room - though luckily, it's not a broom closet
     this time.  The room is quite large. In the middle is a table, with a bunch
     of random things scattered about. At the other end of the room is a gate,
     behind which you can see an incredibly overgrown garden.
 
     Remember, you can always 'observe' your surroundings to find out more.
+  }
+}
 
-    [reset-power: observe]
-    [reset-power: open]
-    [reset-power: take]
-
-<power: observe>
-    [respond]
+power observe {
+  respond {
     You find yourself in another room - though luckily, it's not a broom closet
     this time.  The room is quite large. In the middle is a table, with a bunch
     of random things scattered about. At the other end of the room is a gate,
     behind which you can see an incredibly overgrown garden.
+  }
+}
 
-<power: observe table>
-    [respond]
+power observe table {
+  respond {
     The table in the middle of the room has a bunch of things messilly
     scattered around it.
 
     FINISH THIS!
+  }
+}
 
-<power: observe garden>
-    [respond]
+power observe garden {
+  respond {
     The garden beyond the gate is incredibly overgrown garden. You can't see
     much beyond the gate. It's incredibly green, though. 
 
     You spend a few moments trying to decide whether it's green or blue, and
     can't come to a decisive conclusion. You think it's probably blue, just
     like your jacket is green.
+  }
+}
 
-<power: observe gate>
-    [respond]
+power observe gate {
+  respond {
     The gate leads to an incredibly overgrown garden. You can't see much beyond
     it, because it's just that overgrown.
 
@@ -44,3 +49,5 @@
     another. Three more seem to be charred, and yet another one has a rose
     growing out of its fuel tank. That garden must be truly intense. I wouldn't
     want to get on the bad side of that garden, honestly.
+  }
+}

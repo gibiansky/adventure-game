@@ -16,7 +16,6 @@ import Data.String.Utils
 import qualified Data.Map as Map
 
 import Debug.Trace
-debug x = trace ("Debug: " ++ show x) x
 
 runCommand :: Lazy.ByteString -> State Game Lazy.ByteString
 runCommand commandStr = 
@@ -30,6 +29,11 @@ getHistory _ = do
   commands <- gets history
   return $ encode commands
 
+getItems :: Lazy.ByteString -> State Game Lazy.ByteString
+getItems _ = do
+  myItems <- gets items
+  return $ encode myItems
+
 
 noSuchCommand :: CommandResponse
 noSuchCommand = Just "error: no matching command found. enqueue headpat."
@@ -42,8 +46,8 @@ instance FromJSON Command where
   parseJSON (Object v) = Command <$> return (-1) <*> v .: "command" <*> return Nothing
   parseJSON _ = mzero
 
-initGame :: Map.Map String Room -> Game
-initGame roomlist =
+initGame :: Map.Map RoomName Room -> Map.Map EventName String -> Game
+initGame roomlist eventlist =
   let Room enterActs _ _ = fromJust $ Map.lookup "init" roomlist
       game = Game {
         history = [],
@@ -51,7 +55,9 @@ initGame roomlist =
         currentRoom = fromJust $ Map.lookup "init" roomlist,
         rooms = roomlist,
         lastId = 1,
-        powers = []
+        powers = [],
+        items = [],
+        allEvents = eventlist
       }
       (initializedGame, initOut) = runWriter $ foldM runAction game enterActs in
     initializedGame { history = [Command 0 "start" $ Just initOut]}
@@ -114,9 +120,16 @@ runAction game command =
            case Map.lookup name $ rooms game of
              Nothing -> error $ concat ["No room named ", name, " in room list!"]
              Just room@(Room enterActs _ _) -> do
-               let game' = game { currentRoom = room, powers = combinePowers (powers game) (powerDefinitions room) }
+               let game' = game { currentRoom = room, powers = combinePowers (powers game) (powerDefinitions room), commandCounts = Map.empty }
                foldM runAction game' (actions ++ enterActs)
- 
-
-
-
+       GainItem itemName dispstring -> do
+         tell dispstring
+         return game {items = itemName : items game}
+       LoseItem itemName dispstring -> do
+         tell dispstring
+         return game {items = filter (/= itemName) $ items game}
+       IfPosessingItem itemName thenActs elseActs ->
+         foldM runAction game (if itemName `elem` items game then thenActs else elseActs)
+       Event eventName -> do
+         tell $ fromJust $ Map.lookup eventName $ allEvents game 
+         return game

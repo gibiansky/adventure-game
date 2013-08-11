@@ -10,14 +10,27 @@ class CommandHistory extends Backbone.Collection
 ### Views ###
 class Sidebar extends Backbone.View
     initialize: =>
+        @update()
+
+    update: =>
+      console.log 'Item request sent.'
+      $.get "/items", (data) =>
+        console.log 'Item request response received.'
+        @items = $.parseJSON data
         @render()
 
-    events:
-        "click": =>
-            alert "Clicked!"
-
     render: =>
-        @$el.append('Goodbye!')
+      console.log @items
+      @$el.html  ''
+      console.log 'Items:'
+      _.each @items, (item) =>
+        console.log 'Item:', item
+        itemDiv = $(document.createElement 'div')
+        itemDiv.attr("class", "item")
+        itemDiv.html item
+        console.log itemDiv
+        @$el.append itemDiv
+
 
 class AdventureView extends Backbone.View
     views: []
@@ -83,8 +96,10 @@ class TextField extends Backbone.View
         $(document).bind 'keydown', @keyDown
         $(document).bind 'keyup', @keyUp
 
-        # Store history so we can add to it.
+        # Store history and items so we can add to it.
         @history = options.history
+        @items = options.items
+        @sidebar = options.sidebar
 
         # Do initial rendering.
         @render()
@@ -95,6 +110,7 @@ class TextField extends Backbone.View
             response: ""
         @history.add command
         command.save()
+        @sidebar.update()
 
     keyPress: (event) =>
         # Get the character to insert.
@@ -209,7 +225,8 @@ class CommandView extends Backbone.View
     textField = new TextField
         el: adventureView.textEntry
         history: history
+        sidebar: sidebarView
 
     # Load command history.
     history.fetch
-        reset: true
+      reset: true

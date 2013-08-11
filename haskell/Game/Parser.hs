@@ -54,7 +54,7 @@ powerDeclaration = do
 action :: Parser Action
 action = whitespace >> choice actionParsers
   where
-    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser]
+    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser, gainItemParser, loseItemParser, ifPossessingParser, eventParser]
 
 gainParser :: Parser Action
 gainParser = do
@@ -74,6 +74,12 @@ moveToParser = do
   void stringAction
   return $ MoveToRoom name
 
+eventParser :: Parser Action
+eventParser = do
+  name : [] <- actionSpec "event"
+  void stringAction
+  return $ Event name
+
 chooseByCountParser :: Parser Action
 chooseByCountParser = do
   name : [] <- actionSpec "choose-by-count"
@@ -86,16 +92,49 @@ respondParser = do
   val <- stringAction
   return $ Print val
 
+gainItemParser :: Parser Action
+gainItemParser = do
+  name : [] <- actionSpec "gain-item"
+  val <- stringAction
+  return $ GainItem name val
+
+loseItemParser :: Parser Action
+loseItemParser = do
+  name : [] <- actionSpec "lose-item"
+  val <- stringAction
+  return $ GainItem name val
+
+ifPossessingParser :: Parser Action
+ifPossessingParser = do
+  name : [] <- actionSpec "if-item"
+  thenActs <- braced $ many1 $ try action
+  elseActs <- braced $ many1 $ try action
+  return $ IfPosessingItem name thenActs elseActs
+
 stringAction ::  Parser String
 stringAction = do
-  str <- braced $ many $ noneOf "}"
-  return $ unlines $ map (unwords . words) $ lines str
+  whitespace
+  maybeSemicolon <- optionMaybe $ char ';'
+  case maybeSemicolon of
+    Just _ -> return ""
+    Nothing -> do
+      str <- braced $ many $ noneOf "}"
+      return $ unlines $ map (unwords . words) $ lines str
 
 actionSpec :: String -> Parser [String]
 actionSpec name = do
   string name
-  args <- many $ noneOf "{"
-  return $ words args
+
+  let identifier = do
+        whitespace
+        maybeOpenQuote <- optionMaybe $ char '"'
+        case maybeOpenQuote of
+          Just _ -> do
+            val <- many1 $ noneOf "\""
+            char '"'
+            return val
+          Nothing -> many1 $ noneOf " {;"
+  many $ try identifier
 
 powerSpec :: Parser (PowerName, [PowerArg])
 powerSpec = do

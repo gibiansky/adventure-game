@@ -15,9 +15,12 @@ main ::  IO ()
 main = do
   args <- getArgs
   case args of
-    "encode" : datas -> mapM_ (putStrLn . encode) datas
+    "encode" : datas -> mapM_ (putStrLn . encode . surround) datas
     "decode" : datas -> mapM_ (putStrLn . decode) datas
     _ -> printUsage
+
+surround ::  String -> String
+surround str = '^' : str
 
 encode :: String -> String
 encode string = transformed
@@ -27,4 +30,9 @@ encode string = transformed
         transformed = map last sorted
 
 decode :: String -> String
-decode string = string
+decode string = 
+  let emptyTable = replicate (length string) []
+      table = iterate insertionStep emptyTable !! length string in
+     tail . head $ filter ((== '^') . head) table
+  where
+    insertionStep table = sort $ zipWith (:) string table
