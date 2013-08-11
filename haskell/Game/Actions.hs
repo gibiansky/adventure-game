@@ -44,7 +44,7 @@ instance FromJSON Command where
 
 initGame :: Map.Map String Room -> Game
 initGame rooms =
-  let initRoom@(Room enterActions _) = fromJust $ Map.lookup "init" rooms
+  let initRoom@(Room enterActions _ _) = fromJust $ Map.lookup "init" rooms
       game = Game {
         history = [],
         commandCounts = Map.empty,
@@ -82,7 +82,7 @@ powerMatches str (Power name args _) =
 getPowerWithName :: String -> Game -> Power
 getPowerWithName name game = fromJust $ find ((name ==) . powerName) roomPowers
   where
-    Room _ roomPowers = currentRoom game
+    Room _ _ roomPowers = currentRoom game
     powerName (Power name _ _) = name
 
 runAction :: Game -> Action -> Writer String Game
@@ -104,12 +104,13 @@ runAction game command =
          tell $ (concat $ repeat strlist) !! count
          return game
        MoveToRoom name ->
-         case Map.lookup name $ rooms game of
-              Nothing -> error $ concat ["No room named ", name, " in room list!"]
-              Just room@(Room enterActions _) -> do
-                let game' = game { currentRoom = room }
-                foldM runAction game' enterActions
-
+         let actions = exitActions $ currentRoom game in
+           case Map.lookup name $ rooms game of
+             Nothing -> error $ concat ["No room named ", name, " in room list!"]
+             Just room@(Room enterActions _ _) -> do
+               let game' = game { currentRoom = room }
+               foldM runAction game' (actions ++ enterActions)
+ 
 
 
 

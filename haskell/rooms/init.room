@@ -1,51 +1,58 @@
-<enter>
-    [respond]
-    You are in a strange room. 
+enter {
+    respond {
+        You are in a strange room. 
 
-    You'd really like to look around and find out what this room is like, but
-    for some reason you can't. In fact, you seem to be unable to do anything
-    except concentrate on the voice in your head, which is letting you know
-    that you're in a strange room, and that you'd like to look around but
-    can't.
+        You'd really like to look around and find out what this room is like, but
+        for some reason you can't. In fact, you seem to be unable to do anything
+        except concentrate on the voice in your head, which is letting you know
+        that you're in a strange room, and that you'd like to look around but
+        can't.
 
-    Are you okay with that?
-
-    [gain: yes]
-
-    You have learned to say '_'.
-    To use an ability, just type it into the prompt. Some abilities take arguments, but these don't.
-
-    [gain: no]
-    You have also learned to say '_'.
-
-<power: yes>
-    [choose-by-count: no]
-    {
-    Good! You didn't really have a choice anyway.
-
-    You're learning.
+        Are you okay with that?
     }
-    {
-    Good! I'm glad you're so agreeable today.
+    gain yes {
+        You have learned to say '_'.
+        To use an ability, just type it into the prompt. Some abilities take arguments, but these don't.
+    }
+    gain no {
+        You have also learned to say '_'.
+    }
+}
 
-    Since you've started agreeing with me, why not continue?
+exit {
+    lose yes {
+        You have forgotten the word '_'. You feel a burst of joy, knowing that you have freed an extra several bytes of memory in your head now.
+    }
+    lose no {
+        You have also forgotten the word '_'. Oh well. It was for chumps, anyway. And you're not a chump.
+    }
+}
+
+power yes {
+    choose-by-count no {
+        Good! You didn't really have a choice anyway.
+
+        You're learning.
+    } {
+        Good! I'm glad you're so agreeable today.
+
+        Since you've started agreeing with me, why not continue?
     }
 
-    [respond]
-    Let's try the next one.
-    [move-to: init-2]
+    respond {
+        Let's try the next one.
+    }
+    move-to init-2 {}
+}
 
-<power: no>
-    [choose-by-count: no]
-    {
-    You should really be more okay with it. Try again.
+power no {
+    choose-by-count no {
+        You should really be more okay with it. Try again.
+    } {
+        Are you sure that's a good idea? It might lead to some serious cognitive dissonance issues later on. Try another answer.
+    } {
+        Maybe you should reconsider saying 'no' again and just say 'yes'.
+    } {
+        I'm not letting you go anywhere until you say yes. So just say 'yes'.
     }
-    {
-    Are you sure that's a good idea? It might lead to some serious cognitive dissonance issues later on. Try another answer.
-    }
-    {
-    Maybe you should reconsider saying 'no' again and just say 'yes'.
-    }
-    {
-    I'm not letting you go anywhere until you say yes. So just say 'yes'.
-    }
+}

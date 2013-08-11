@@ -16,7 +16,11 @@ type CommandResponse = Maybe String
 data Command = Command CommandId String CommandResponse deriving Show
 
 
-data Room = Room [Action] [Power]
+data Room = Room {
+  enterActions :: [Action],
+  exitActions :: [Action],
+  powerDefinitions :: [Power]
+  }
 data Action = Print String |
               GainPower PowerName String |
               LosePower PowerName String |
@@ -31,10 +35,10 @@ type RoomName = String
 
 -- Debug instances
 instance Show Room where
-  show (Room actions pows) = 
+  show room = 
     let header = "\nRoom:\n-----\n<enter>\n"
-        enterSection = unlines $ map ("    " ++) $ lines . unlines $ map show actions
-        powerSection = unlines $ map show pows in
+        enterSection = unlines $ map ("    " ++) $ lines . unlines $ map show $ enterActions room
+        powerSection = unlines $ map show $ powerDefinitions room in
       header ++ enterSection ++ powerSection
 
 instance Show Action where

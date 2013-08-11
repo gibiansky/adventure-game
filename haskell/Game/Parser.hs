@@ -9,6 +9,7 @@ import Control.Monad
 
 import Debug.Trace
 import Data.String.Utils
+import Data.Maybe
 
 parseRoom :: String -> String -> (String, Room)
 parseRoom contents name = 
@@ -18,25 +19,43 @@ parseRoom contents name =
 
 room :: Parser Room
 room = do
-  section $ string "enter"
+  enters <- namedActions "enter"
   whitespace
-  enterCmds <- many action
+  maybeExit <- optionMaybe $ try $ namedActions "exit"
+  whitespace
   powers <- many $ try powerDeclaration
   whitespace
   eof
-  return $ Room enterCmds powers
+  let exitActs = fromMaybe [] maybeExit
+  return Room {enterActions = enters, exitActions = exitActs, powerDefinitions = powers}
 
-action :: Parser Action
-action = whitespace >> choice actionParsers
-  where
-    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser]
+braced :: Parser a -> Parser a
+braced parser = do
+  whitespace
+  char '{'
+  whitespace
+  val <- parser
+  whitespace
+  char '}'
+  whitespace
+  return val
+
+namedActions :: String -> Parser [Action]
+namedActions name = do
+  string name
+  braced $ many action
 
 powerDeclaration :: Parser Power
 powerDeclaration = do
   whitespace
   (name, args) <- powerSpec
-  actions <- many1 $ try action
+  actions <- braced $ many1 $ try action
   return $ Power name args actions
+
+action :: Parser Action
+action = whitespace >> choice actionParsers
+  where
+    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser]
 
 gainParser = do
   name : [] <- actionSpec "gain" 1
@@ -50,12 +69,12 @@ loseParser = do
 
 moveToParser = do
   name : [] <- actionSpec "move-to" 1
+  void stringAction
   return $ MoveToRoom name
 
 chooseByCountParser = do
   name : [] <- actionSpec "choose-by-count" 1
-  eol
-  responseChoices <- many1 $ try responseOptionAction
+  responseChoices <- many1 stringAction
   return $ ChooseByCount name responseChoices
 
 respondParser :: Parser Action
@@ -64,48 +83,23 @@ respondParser = do
   val <- stringAction
   return $ Print val
 
-responseOptionAction = do
-  between whitespace whitespace $ string "{"
-  str <- manyTill anyChar $ lookAhead $ string "}"
-  string "}"
-  return $ unlines $ map (unwords . words) $ lines str
-
 stringAction :: Parser String
 stringAction = do
-  str <- many $ noneOf "[<"
+  str <- braced $ many $ noneOf "}"
   return $ unlines $ map (unwords . words) $ lines str
 
-nothingAction :: Parser ()
-nothingAction = void whitespace
-
 actionSpec :: String -> Int -> Parser [String]
-actionSpec name nargs = surround '[' ']' spec
-  where
-    spec = do
-      string name
-      if nargs == 0
-      then return []
-      else do
-        char ':'
-        args <- many $ noneOf "]"
-        return $ words args
+actionSpec name nargs = do
+  string name
+  args <- many $ noneOf "{"
+  return $ words args
 
 powerSpec :: Parser (PowerName, [PowerArg])
 powerSpec = do
-  string "<power:"
-  nameAndArgs <- many $ noneOf ">"
-  char '>'
+  string "power"
+  nameAndArgs <- many $ noneOf "{"
   let name : args = words nameAndArgs
   return (name, args)
-
-section :: Parser a -> Parser a
-section = surround '<' '>'
-
-command :: Parser a -> Parser a
-command = surround '<' '>'
-
-surround :: Char -> Char -> Parser a -> Parser a
-surround startChar endChar = between (char startChar) (char endChar)
 
 whitespace :: Parser String
 whitespace = many $ oneOf " \t\n"

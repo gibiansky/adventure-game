@@ -17,11 +17,12 @@ import Control.Monad.State
 import Snap.Extras.JSON
 
 import System.Directory
-import Data.String.Utils
 
 import Game.Types
 import Game.Parser
 import Game.Actions
+
+import Data.String.Utils
 
 import Debug.Trace
 
