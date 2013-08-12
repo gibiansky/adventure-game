@@ -70,7 +70,7 @@ setOrModify val modifier key hashmap =
 
 run :: Command -> Game -> Game
 run (Command _ cmdstr _) game = 
-  case find (powerMatches cmdstr) (powers game) :: Maybe Power of
+  case find (powerMatches cmdstr) (powerDefinitions $ currentRoom game) :: Maybe Power of
        Nothing -> 
          let errcmd = Command (lastId game) cmdstr noSuchCommand in
            game {history = history game ++ [errcmd], lastId = 1 + lastId game}
@@ -91,11 +91,6 @@ getPowerWithName name game = fromJust $ find ((name ==) . powerName) roomPowers
     Room _ _ roomPowers = currentRoom game
     powerName (Power powername _ _) = powername
 
-combinePowers :: [Power] -> [Power] -> [Power]
-combinePowers oldPowers newPowers =
-  let keep = filter (`notElem` newPowers) oldPowers in
-    newPowers ++ keep
-
 
 runAction :: Game -> Action -> Writer String Game
 runAction game command = 
@@ -105,12 +100,10 @@ runAction game command =
          return game
        GainPower name dispstring -> do
          tell $ replace "_" name dispstring
-         let power = getPowerWithName name game
-         return $ game {powers = power : powers game}
+         return $ game {powers = name : powers game}
        LosePower name dispstring -> do
          tell $ replace "_" name dispstring
-         let hasName (Power powname _ _) = powname == name 
-         return $ game {powers = filter (not . hasName) $ powers game}
+         return $ game {powers = filter (/= name) $ powers game}
        ChooseByCount name strlist -> do
          let ct = Map.findWithDefault 0 name $ commandCounts game
          tell $ cycle strlist !! ct
@@ -120,7 +113,7 @@ runAction game command =
            case Map.lookup name $ rooms game of
              Nothing -> error $ concat ["No room named ", name, " in room list!"]
              Just room@(Room enterActs _ _) -> do
-               let game' = game { currentRoom = room, powers = combinePowers (powers game) (powerDefinitions room), commandCounts = Map.empty }
+               let game' = game { currentRoom = room, commandCounts = Map.empty }
                foldM runAction game' (actions ++ enterActs)
        GainItem itemName dispstring -> do
          tell dispstring

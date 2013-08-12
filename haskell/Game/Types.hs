@@ -8,7 +8,7 @@ data Game = Game {
   commandCounts :: Map.Map PowerName Int,
   currentRoom :: Room,
   rooms :: Map.Map String Room,
-  powers :: [Power],
+  powers :: [PowerName],
   lastId :: Int,
   items :: [ItemName],
   allEvents :: Map.Map EventName String

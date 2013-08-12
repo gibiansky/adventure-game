@@ -27,6 +27,9 @@ power observe table {
     a cell phone with a broken screen.
 
     Something strange happened here... maybe examining these items in detail will help.
+
+    Remember - you are allowed to use outside resources. Google, as well as the
+    rest of the internet, is fair game. You may need to use them.
   }
 }
 
@@ -68,10 +71,29 @@ power observe napkin {
     get your DNA on the thing.
 
     The note has a few scribbles on it, among them the URL "rentagoat.com" with
-    the label "India Street" underlined several times next to it. It looks like
+    the label "SAVIOURS" underlined several times next to it. It looks like
     the author started writing a phone number, too, but never finished it...
 
     85...
+  }
+}
+
+power take napkin {
+  respond {
+    You really don't want to pick up that blood-stained napkin.
+  }
+}
+
+power take note {
+  respond {
+    You don't want to be caught holding the gardener's suicide note. You should
+    examine and read it, but probably leave it where it is.
+  }
+}
+
+power take postcards {
+  respond {
+    
   }
 }
 
@@ -88,7 +110,92 @@ power observe phone {
   }
 }
 
+power observe cell phone {
+  if-item "Cell Phone" {
+    respond {
+      It's just a phone. You can use it to call a number.
+    }
+  } {
+    respond {
+      It's a cell phone. You can use it to call a number. It might prove useful.
+      Maybe you should take it?
+    }
+  }
+}
+
+power observe cellphone {
+  if-item "Cell Phone" {
+    respond {
+      It's just a phone. You can use it to call a number.
+    }
+  } {
+    respond {
+      It's a cell phone. You can use it to call a number. It might prove useful.
+      Maybe you should take it?
+    }
+  }
+}
+
+power open cell phone {
+  respond {
+    You can't open this cell phone. It's old. It's not like those flip phones
+    you young'uns have. We're talking the nineties here.
+
+    The gardener was an old-school man. They don't make 'em like that anymore.
+  }
+}
+
+power open phone {
+  respond {
+    You can't open this cell phone. It's old. It's not like those flip phones
+    you young'uns have. We're talking the nineties here.
+
+    The gardener was an old-school man. They don't make 'em like that anymore.
+  }
+}
+
+power open cellphone {
+  respond {
+    You can't open this cell phone. It's old. It's not like those flip phones
+    you young'uns have. We're talking the nineties here.
+
+    The gardener was an old-school man. They don't make 'em like that anymore.
+  }
+}
+
+power take cell phone {
+  if-item "Cell Phone" {
+    respond {
+      There's only one cell phone here. You already have it.
+    }
+  } {
+    gain-item "Cell Phone" {
+      You pick up the cell phone.
+    }
+    gain call {
+      You can use your cell phone to call people with the '_' command, followed
+      by a number in the format %d%d%d-%d%d%d-%d%d%d%d.
+    }
+  }
+}
+
 power take phone {
+  if-item "Cell Phone" {
+    respond {
+      There's only one cell phone here. You already have it.
+    }
+  } {
+    gain-item "Cell Phone" {
+      You pick up the cell phone.
+    }
+    gain call {
+      You can use your cell phone to call people with the '_' command, followed
+      by a number in the format %d%d%d-%d%d%d-%d%d%d%d.
+    }
+  }
+}
+
+power take cellphone {
   if-item "Cell Phone" {
     respond {
       There's only one cell phone here. You already have it.
@@ -111,6 +218,9 @@ power open gate {
       by a horde of goats, the remainder of the gate swings open easily. You walk
       into the remainder of the garden, wondering what all that was about.
     }
+
+    lose-item "Goat";
+    lose-item "Cell Phone";
 
     respond {
       move-to garden;
@@ -190,5 +300,29 @@ power observe gate {
     another. Three more seem to be charred, and yet another one has a rose
     growing out of its fuel tank. That garden must be truly intense. I wouldn't
     want to get on the bad side of that garden, honestly.
+  }
+}
+
+power observe piece of picture {
+  respond {
+      You try to examine the picture, but can't make anything out. It doesn't
+      look like anything intelligible - just a bunch of auto-generated noise.
+      However, you do notice that the back of the picture has the letters "GLA"
+      scrawled on it.
+
+      This is only part of the picture, though. You can tell it was neatly
+      torn, so maybe you can find the other pieces somewhere?
+  }
+}
+
+power observe picture {
+  respond {
+      You try to examine the picture, but can't make anything out. It doesn't
+      look like anything intelligible - just a bunch of auto-generated noise.
+      However, you do notice that the back of the picture has the letters "GLA"
+      scrawled on it.
+
+      This is only part of the picture, though. You can tell it was neatly
+      torn, so maybe you can find the other pieces somewhere?
   }
 }

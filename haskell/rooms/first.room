@@ -110,7 +110,7 @@ power observe broom {
     }
   } {
     respond {
-      You don't have a broom.
+      It's a broom. Pick up the broom before you observe it further.
     }
   }
 }
