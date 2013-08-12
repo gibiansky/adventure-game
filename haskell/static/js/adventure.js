@@ -61,9 +61,7 @@
 
     Sidebar.prototype.update = function() {
       var _this = this;
-      console.log('Item request sent.');
       return $.get("/items", function(data) {
-        console.log('Item request response received.');
         _this.items = $.parseJSON(data);
         return _this.render();
       });
@@ -71,16 +69,12 @@
 
     Sidebar.prototype.render = function() {
       var _this = this;
-      console.log(this.items);
       this.$el.html('');
-      console.log('Items:');
       return _.each(this.items, function(item) {
         var itemDiv;
-        console.log('Item:', item);
         itemDiv = $(document.createElement('div'));
         itemDiv.attr("class", "item");
         itemDiv.html(item);
-        console.log(itemDiv);
         return _this.$el.append(itemDiv);
       });
     };
@@ -139,6 +133,11 @@
         return _this.historyView.append(view.render().el);
       });
       this.historyView.scrollTop(this.historyView.prop('scrollHeight'));
+      console.log('scroll', this.historyView.prop('scrollHeight'));
+      this.historyView.find("img").load(function() {
+        console.log('scroll-post-load', _this.historyView.prop('scrollHeight'));
+        return _this.historyView.scrollTop(_this.historyView.prop('scrollHeight'));
+      });
       return this;
     };
 

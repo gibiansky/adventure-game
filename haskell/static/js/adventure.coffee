@@ -13,22 +13,16 @@ class Sidebar extends Backbone.View
         @update()
 
     update: =>
-      console.log 'Item request sent.'
       $.get "/items", (data) =>
-        console.log 'Item request response received.'
         @items = $.parseJSON data
         @render()
 
     render: =>
-      console.log @items
       @$el.html  ''
-      console.log 'Items:'
       _.each @items, (item) =>
-        console.log 'Item:', item
         itemDiv = $(document.createElement 'div')
         itemDiv.attr("class", "item")
         itemDiv.html item
-        console.log itemDiv
         @$el.append itemDiv
 
 
@@ -75,6 +69,12 @@ class AdventureView extends Backbone.View
 
         # Make sure the bottom of the history is always visible.
         @historyView.scrollTop(@historyView.prop('scrollHeight'))
+        console.log 'scroll', @historyView.prop('scrollHeight')
+
+        # Prevent images from screwing this up.
+        @historyView.find("img").load =>
+          console.log 'scroll-post-load', @historyView.prop('scrollHeight')
+          @historyView.scrollTop(@historyView.prop('scrollHeight'))
 
         this
 

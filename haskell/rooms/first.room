@@ -118,16 +118,16 @@ power observe broom {
 power observe door {
   if-item "Piece of a Picture (GLA)" {
     respond {
-      The door is only a few inches from your face, with a large picture taped
-      to it. The picture bulges out in the middle - is there something behind it?
-    }
-  } {
-    respond {
       Now that you've gleefully ripped the picture off the wall, depriving the
       janitor of any happiness he might have ever had the chance to experience,
       the door is thoroughly boring. It serves only as a pleasant reminder of
       the depressing life of a janitor, as well as the less pleasant reminder
       that you're stuck in a broom closet.
+    }
+  } {
+    respond {
+      The door is only a few inches from your face, with a large picture taped
+      to it. The picture bulges out in the middle - is there something behind it?
     }
   }
 }

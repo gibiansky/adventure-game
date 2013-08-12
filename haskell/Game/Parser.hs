@@ -102,7 +102,7 @@ loseItemParser :: Parser Action
 loseItemParser = do
   name : [] <- actionSpec "lose-item"
   val <- stringAction
-  return $ GainItem name val
+  return $ LoseItem name val
 
 ifPossessingParser :: Parser Action
 ifPossessingParser = do

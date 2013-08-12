@@ -21,20 +21,161 @@ power observe {
 power observe table {
   respond {
     The table in the middle of the room has a bunch of things messilly
-    scattered around it.
+    scattered around it. There seem to be several postcards scattered around,
+    all of them with pictures of goats. Some of the goats have very brightly
+    colored military coats. You also notice a blood-stained napkin, a note, and
+    a cell phone with a broken screen.
 
-    FINISH THIS!
+    Something strange happened here... maybe examining these items in detail will help.
+  }
+}
+
+power observe postcards {
+  respond {
+    You leaf through a few of the postcards, and they all seem to have something in common...
+
+    <table>    <tr>    <td>    <img src="/static/imgs/goat1.jpg" width="200px" class="inline-image"/>    </td>    <td>    <img src="/static/imgs/goat2.jpg" width="200px" class="inline-image"/>    </td>    </tr>    <tr>    <td>    <img src="/static/imgs/goat3.jpg" width="200px" class="inline-image"/>    </td>    <td>    <img src="/static/imgs/goat4.jpg" width="200px" class="inline-image"/>    </td>    </tr>    </table>
+    Man, someone really liked goats.
+  }
+}
+
+power observe note {
+  respond {
+    The note seems to be from the gardener... Oh dear. It's a suicide note.
+
+    "The seventh lawnmower has succumbed," he wrote, "Please, get help."
+
+    You *really* don't mess with the garden beyond the gate alone, it seems. The
+    note devolves into messy handwriting detailing the horrors of the garden
+    beyond the gate, slowly becoming less and less legible and less and less
+    sane... It ends with what can only be described the mad ravings of a crazed
+    gardener. That poor, poor man...
+
+    It looks like there's also some writing on the bloodstained napkin that's
+    lying next to the note, too.
+
+    On the bright side, he was probably the janitor, so at least he can't be sad
+    that you took his picture. Guess it was alright afterall! Maybe he has some
+    other cool stuff you could take.
+  }
+}
+
+power observe napkin {
+  respond {
+    You carefully examine the blood-stained napkin lying next to the note on the
+    table, making sure not to touch it. You don't really mind blood, but who
+    knows - what if there's an ongoing murder investigation? You wouldn't want to
+    get your DNA on the thing.
+
+    The note has a few scribbles on it, among them the URL "rentagoat.com" with
+    the label "India Street" underlined several times next to it. It looks like
+    the author started writing a phone number, too, but never finished it...
+
+    85...
+  }
+}
+
+power observe phone {
+  if-item "Cell Phone" {
+    respond {
+      It's just a phone. You can use it to call a number.
+    }
+  } {
+    respond {
+      It's a cell phone. You can use it to call a number. It might prove useful.
+      Maybe you should take it?
+    }
+  }
+}
+
+power take phone {
+  if-item "Cell Phone" {
+    respond {
+      There's only one cell phone here. You already have it.
+    }
+  } {
+    gain-item "Cell Phone" {
+      You pick up the cell phone.
+    }
+    gain call {
+      You can use your cell phone to call people with the '_' command, followed
+      by a number in the format %d%d%d-%d%d%d-%d%d%d%d.
+    }
+  }
+}
+
+power open gate {
+  if-item "Goat" {
+    respond {
+      Now that the garden - and most of the gate, actually - have been devoured
+      by a horde of goats, the remainder of the gate swings open easily. You walk
+      into the remainder of the garden, wondering what all that was about.
+    }
+
+    respond {
+      move-to garden;
+      THE END.
+    }
+  } {
+    respond {
+      No matter how hard you try, you can't get the gate to budge. There's just
+      too many plants in the garden beyond - they're blocking the path.
+    }
+  }
+}
+
+power call 858-751-GOAT {
+  if-item "Goat" {
+    respond {
+      You've already called this number. There are no more goats.
+    }
+  } {
+    respond {
+      You manage to call the number... and within seconds of you dialing, a horde
+      of goats barrels through the door. They devour everything in their way,
+      including the table, gate, garden, and pretty much everything else
+      excluding you. One of them attempts to eat your pants, but you manage to
+      fend it off.
+
+      The path to the garden is clear, and you can open the gate. You decide to
+      keep a goat as a souvenier, or in case you want to rent it out to
+      someone.
+    }
+
+    gain-item "Goat";
+  }
+}
+
+power call 858-751-4628 {
+  if-item "Goat" {
+    respond {
+      You've already called this number. There are no more goats.
+    }
+  } {
+    respond {
+      You manage to call the number... and within seconds of you dialing, a horde
+      of goats barrels through the door. They devour everything in their way,
+      including the table, gate, garden, and pretty much everything else
+      excluding you. One of them attempts to eat your pants, but you manage to
+      fend it off.
+
+      The path to the garden is clear, and you can open the gate. You decide to
+      keep a goat as a souvenier, or in case you want to rent it out to
+      someone.
+    }
+
+    gain-item "Goat";
   }
 }
 
 power observe garden {
   respond {
-    The garden beyond the gate is incredibly overgrown garden. You can't see
-    much beyond the gate. It's incredibly green, though. 
+    The garden beyond the gate is incredibly overgrown. You can't see
+    much beyond the gate. It's very bright, though. 
 
     You spend a few moments trying to decide whether it's green or blue, and
     can't come to a decisive conclusion. You think it's probably blue, just
-    like your jacket is green.
+    like your jacket is green. Because, you think, that's what color gardens are. Blue.
   }
 }
 
