@@ -54,7 +54,14 @@ powerDeclaration = do
 action :: Parser Action
 action = whitespace >> choice actionParsers
   where
-    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser, gainItemParser, loseItemParser, ifPossessingParser, eventParser]
+    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser, gainItemParser, loseItemParser, ifPossessingParser, eventParser, synonymParser]
+
+
+synonymParser :: Parser Action
+synonymParser = do
+  parts <- actionSpec "synonym"
+  stringAction
+  return $ PowerTrigger $ unwords parts
 
 gainParser :: Parser Action
 gainParser = do

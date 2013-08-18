@@ -222,10 +222,7 @@ power open gate {
     lose-item "Goat";
     lose-item "Cell Phone";
 
-    respond {
-      move-to garden;
-      THE END.
-    }
+    move-to garden;
   } {
     respond {
       No matter how hard you try, you can't get the gate to budge. There's just

@@ -1,0 +1,399 @@
+enter {
+    synonym observe;
+}
+
+power observe {
+    respond {
+        The garden around you looks stunningly beautiful... or, at least, you
+        think it would, had you not loosed a horde of goats upon it. Sadly, you
+        did, so all that is left of the garden is a few uneaten shrubs, and
+        instead of a beautiful botanical garden you just have a large quantity
+        of very self-satisfied goats. They look at you adoringly and nibble at
+        your shoes.
+
+        The garden is located in a courtyard, surrounded by glass walls.  In
+        front of you is a large pond, potentially filled with fish; to your
+        left is large revolving door; to your right you spot a strange wooden
+        altar with a few now-eviscerated rose bushes surrounding it.
+    }
+}
+
+power observe pond {
+    respond {
+        As you near the pond, you notice large letters inscribed on the stone
+        around it. They kindly inform you:
+
+        | DO NOT FEED THE KOI.
+        | DO NOT LOOK AT THE KOI.
+        | DO NOT THINK ABOUT THE KOI.
+        | THE KOI DO NOT EXIST.
+
+        A rather long inscription to the left warns you:
+
+        | BEWARE OF KOI: The Koi is a highly intelligent and vicious creature.
+        | You are no match for the Koi. Tread carefully. Communicating or
+        | interacting with the Koi may lead to unpleasant side effects, such as a
+        | headache, a stomach ache, dry eyes, internal bleeding, internal
+        | combustion, evisceration, disembowelment, dismemberment, death, or a
+        | general unsatisfaction with your life and a feeling that everything
+        | you're doing is utterly pointless nonsense in a meaningless and
+        | uncaring world.
+
+        You notice that the pond does, indeed, contain a rather large Koi, as
+        well as plenty of rather blue seaweed. Is it blue? You're not sure.
+        Most people would call that color green, but you're not quite sure. You
+        think it's blue.
+
+        The Koi is starting at you, eyes and mouth wide open, fangs showing.
+
+        Somehow, it smiles... and waits.
+    }
+}
+
+power observe koi {
+    respond {
+        There's a bright orange Koi in the pond. Or is that bright red? You
+        might even call it blood red...
+
+        Though, you also consider calling it blue. Surprisingly, you decide against it.
+
+        The Koi is starting at you, unmoving, eyes and mouth wide open, fangs showing.
+
+        Somehow, it smiles... and waits. What is it waiting for?
+    }
+}
+
+power observe fish {
+    synonym observe koi;
+}
+
+power observe door {
+    respond {
+        It's a large revolving glass door. Upon first inspection, it seems
+        perfectly normal...
+
+        But as you look closer, you notice something's not quite right. There
+        are fine scratch marks all over the glass. You might want to examine
+        these scratches in more detail...
+    }
+}
+
+power observe revolving door {
+    synonym observe door;
+}
+
+power observe scratches {
+    respond {
+        The revolving glass door is covered in scratches... different ones, too.
+
+        In one places, the door has several large scratches, as though it was
+        beaten with a large blunt object. Maybe someone walked into the door...
+
+        Many other places are scratched up with smaller marks... they look like
+        nail scratches. Can nails even scratch glass?
+
+        In the corner of the door, someone has taken a nail and scratched some
+        words into the glass. They say:
+
+        | Believe the sign...! The pond knows the truth! Oh gods, the Koi!
+        | Sweet Jesus, save us! DO NOT TALK TO THE KOI!
+    }
+}
+
+power observe scratch marks {
+    synonym observe scratches;
+}
+
+power open door {
+    if-item "Hatchet" {
+        respond {
+            You try to open the revolving glass door, but it refuses to budge. You
+            try harder - even putting all your weight into it - yet it still
+            refuses to move.
+
+            You give up on the door, take out your hatchet, and slam the edge
+            forcefully into the glass wall nearby. The glass shatters, and,
+            ignoring the spray of sharp shards of glass, you happily proceed
+            onwards.
+
+            lose-item "Hatchet";
+            lose-item "Lamb Steak";
+            lose-item "Business Card";
+            lose-item "Candle";
+        }
+
+        respond {
+            THE END!
+
+            move-to hallway; 
+        }
+    } {
+        respond {
+            You try to open the revolving glass door, but it refuses to budge. You
+            try harder - even putting all your weight into it - yet it still
+            refuses to move.
+
+            The mechanism that lets the door rotate seems to be broken. I guess
+            you'll just have to find a way to break the glass.
+
+            You notice that the door is covered in scratches, so looks like you're
+            not the first one to try. But the door's still there, so it doesn't
+            seem like anyone's succeeded... but what happened to everyone else?
+        }
+    }
+}
+
+power open revolving door {
+    synonym open door;
+}
+
+power observe rose bush {
+    respond {
+        The rose bush is pathetic. Though it used to be a beautiful flowering
+        plant, the quickly rising goat population of the garden has reduced it
+        to a mere shrub on the verge of death.
+
+        Are you proud of yourself? Are you happy about what you've done? You monster!
+    }
+}
+
+power observe rose bushes {
+    synonym observe rose bush;
+}
+
+power observe roses {
+    synonym observe rose bush;
+}
+
+power observe altar {
+    synonym observe pedestal;
+}
+
+power observe pedestal {
+    respond {
+        You walk over to the altar on your right, wondering what it's doing in
+        this garden. It turns out that what you had original classified as an
+        altar was really more of a pedestal...
+
+        The altar-pedestal combo has, on top of it, a number of candles and
+        other assorted altar-related minutia. There's also a painting with all
+        sorts of stickmen and arrows and crosses and circles, though you're not
+        quite sure what the painting is about. A torn up frisbee lies next to
+        the candles... Man, whoever made this takes the idea of "religious
+        sacrifices" seriously.
+        
+        At the base of an altar is a large wooden chest, gilded with some shiny
+        metal that is only there to convince you that the chest is important.
+    }
+}
+
+power observe candles {
+    respond {
+        They're candles. You briefly consider whether goats eat candles. They
+        probably don't, but who knows. Sounds like a job for science... later.
+    }
+}
+
+power take candles {
+    if-item "Candle" {
+        respond {
+            You already have a candle. Don't be greedy.
+        }
+    } {
+        gain-item "Candle";
+        respond {
+            You pick up a candle... for future science? You are a terrible person.
+        }
+    }
+}
+
+power take candle {
+    synonym take candles;
+}
+
+power observe frisbee {
+    respond {
+        The frisbee is terribly bent out of shape and a little bit singed.
+        Whatever gods this altar is for must feel thoroughly worshipped.
+    }
+}
+
+power take frisbee {
+    respond {
+        You feel a sense of disgust towards the state that frisbee is in.
+        You're not touching that filthy thing with your hands! It must've
+        deserved what happened to it.
+    }
+}
+
+power observe chest {
+    respond {
+        At the base of an altar is a large wooden chest, gilded with some shiny
+        metal that is only there to convince you that the chest is important.
+
+        There used to be some sort of inscription on it, but it's so old that
+        it's mostly faded. You can barely make out the word "ULTIMATE", but
+        that's it.
+
+        You wonder what's inside the chest.
+    }
+}
+
+power take chest {
+    respond {
+        You try to pocket the chest, but find that the chest is too heavy for
+        you to pick up. Who the hell carries chests around with them, anyways?
+        Chests are for chumps. And you're not a chump!
+    }
+}
+
+power open chest {
+    respond {
+        You open the chest... and it's almost empty.
+
+        At the bottom of the chest is a small business card, colored white with
+        streaks of... orange?
+    }
+}
+
+power observe card  {
+    synonym observe business card;
+}
+
+power take card {
+    synonym take business card;
+}
+
+power observe business card {
+    respond {
+        At the bottom of the chest is a small business card, colored white with
+        streaks of... orange? 
+        
+        Or is that bright red? You might even call it blood red...  Though, you
+        also consider calling it blue. Surprisingly, you decide against it.
+
+        The business card has a few more of the strange crosses and circles on
+        it that you saw in the painting on the altar. Below them is the inscription, 
+        "REDEEM WITH ME FOR THE ULTIMATE REWARD*".
+
+        You wonder what the asterisk is there for.
+
+        It is signed, as though it were a letter... "Sincerely, your fish friend".
+
+        You are no longer sure you want to know what the asterisk is there for.
+    }
+}
+
+power take business card {
+    if-item "Business Card" {
+        respond {
+            There's only one business card in the chest.
+        }
+    } {
+        respond {
+            You pick up the business card and put it in your pocket.
+        }
+
+        gain give {
+            You can now give things, including this business card, to other
+            entities using the '_' command. To _ a ball to a boy, enter "_ ball boy".
+        }
+
+        gain-item "Business Card";
+    }
+}
+
+power give card koi {
+    if-item "Business Card" {
+        lose-item "Business Card";
+
+        respond {
+            You reach into the pond and hand the business card to the koi.
+
+            The koi smiles and says, cackling, "Welcome, my friend! This is your
+            Ultimate reward: a game of Ultimate Tic Tac Toe! When you defeat me, I
+            will give you what you are longing for".
+
+            He seems like quite a friendly guy, too. Or maybe she seems like a
+            friendly gal. You're not sure. You've never had to sex a fish. You do
+            know a friend who might be able to help, though she's really a salmon
+            specialist... Anyway.
+        }
+
+        gain play {
+            You can try your hand at Ultimate Tic Tac Toe against the koi by typing '_'.
+        }
+    } {
+        respond {
+            You don't have anything to give to the koi.
+        }
+    }
+}
+
+power give candle koi {
+    if-item "Candle" {
+        respond {
+            The koi does not want your candle, and spits it back at you from the
+            water.
+        }
+    } {
+        respond {
+            You don't have anything to give to the koi.
+        }
+    }
+}
+
+power give candle fish {
+    synonym give candle koi;
+}
+
+power give candles koi {
+    synonym give candle koi;
+}
+
+power give candles fish {
+    synonym give candle koi;
+}
+
+power give candle goat {
+    if-item "Candle" {
+        respond {
+            You hand a candle to a nearby goat. It gladly munches on it, and
+            then bursts into flame a few seconds later.
+
+            gain-item "Lamb Steak";
+        }
+    } {
+        respond {
+            You don't have anything to give to a goat.
+        }
+    }
+}
+
+power give candles goat {
+    synonym give candle goat;
+}
+
+power give card fish {
+    synonym give card koi;
+}
+
+power give business card koi {
+    synonym give card koi;
+}
+
+power give business card fish {
+    synonym give card koi;
+}
+
+power play {
+    event ultimate-tic-tac-toe;
+}
+
+power take hatchet {
+    respond {
+        You now have a hatchet! This should help you get out of this goddamned garden!
+    }
+
+    gain-item "Hatchet";
+}

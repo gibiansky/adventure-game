@@ -126,3 +126,8 @@ runAction game command =
        Event eventName -> do
          tell $ fromJust $ Map.lookup eventName $ allEvents game 
          return game
+       PowerTrigger cmdstr ->
+         let Power _ _ actions = fromJust $ find (powerMatches cmdstr) (powerDefinitions $ currentRoom game) in
+           foldM runAction game actions
+
+    

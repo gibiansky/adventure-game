@@ -31,7 +31,9 @@ data Action = Print String |
               GainItem ItemName String |
               LoseItem ItemName String |
               IfPosessingItem String [Action] [Action] |
-              Event EventName
+              Event EventName |
+              PowerTrigger String
+
 type ItemName = String
 type EventName = String
 
