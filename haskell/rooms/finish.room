@@ -66,6 +66,10 @@ power take picture {
 
       This concludes the text adventure portion of this puzzle. Please proceed
       to the next location, as dictated by the decrypted pictures.
+
+      Figuring out how to deal with these picture pieces may be hard. The hints
+      are designed to be used! Don't forget that you can type 'hint' if
+      necessary.
     }
   }
 }
@@ -105,6 +109,8 @@ power hint {
     } {
         The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's concat $ repeat "GLASSCEILING".
     } {
-        There are no more hints. The picture is available <a href="/static/pictures/decrypted.png">here</a>.
+        You can use the decoder available <a href="/static/haskell/Xor.hs">here</a>.
+    } {
+        There are no more hints. The decrypted picture is available <a href="/static/pictures/decrypted.png">here</a>.
     }
 }
