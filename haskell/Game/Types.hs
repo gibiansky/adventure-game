@@ -10,8 +10,7 @@ data Game = Game {
   rooms :: Map.Map String Room,
   powers :: [PowerName],
   lastId :: Int,
-  items :: [ItemName],
-  allEvents :: Map.Map EventName String
+  items :: [ItemName]
   } deriving Show
 type CommandId = Int  
 type CommandResponse = Maybe String
@@ -22,7 +21,7 @@ data Room = Room {
   enterActions :: [Action],
   exitActions :: [Action],
   powerDefinitions :: [Power]
-  }
+  } deriving Show
 data Action = Print String |
               GainPower PowerName String |
               LosePower PowerName String |
@@ -31,8 +30,7 @@ data Action = Print String |
               GainItem ItemName String |
               LoseItem ItemName String |
               IfPosessingItem String [Action] [Action] |
-              Event EventName |
-              PowerTrigger String
+              PowerTrigger String deriving Show
 
 type ItemName = String
 type EventName = String
@@ -45,25 +43,6 @@ instance Eq Power where
     (powargs1 == powargs2) && powname1 == powname2
 
 type RoomName = String
-
--- Debug instances
-instance Show Room where
-  show room = 
-    let header = "\nRoom:\n-----\n<enter>\n"
-        enterSection = unlines $ map ("    " ++) $ lines . unlines $ map show $ enterActions room
-        exitSection = unlines $ map ("    " ++) $ lines . unlines $ map show $ exitActions room
-        powerSection = unlines $ map show $ powerDefinitions room in
-      header ++ enterSection ++ "\n<exit>\n" ++ exitSection ++ powerSection
-
-instance Show Action where
-  show (Print str) = "[respond]\n" ++ str
-  show (GainPower name str) = "[gain: " ++ name ++ "]\n" ++ str
-  show (LosePower name str) = "[lose: " ++ name ++ "]\n" ++ str
-  show (ChooseByCount name strs) = "[choose-by-count: " ++ name ++ "]\n" ++ options
-    where 
-      bracewrap val = "{\n" ++ val ++ "}\n"
-      options = unlines $ map bracewrap strs
-  show (MoveToRoom name) = "[move-to: " ++ name ++ "]"
 
 instance Show Power where
   show (Power name args actions) = "<power: " ++ unwords (name : args) ++ ">\n" ++ actionSection 

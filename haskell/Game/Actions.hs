@@ -46,8 +46,8 @@ instance FromJSON Command where
   parseJSON (Object v) = Command <$> return (-1) <*> v .: "command" <*> return Nothing
   parseJSON _ = mzero
 
-initGame :: Map.Map RoomName Room -> Map.Map EventName String -> Game
-initGame roomlist eventlist =
+initGame :: Map.Map RoomName Room -> Game
+initGame roomlist =
   let Room enterActs _ _ = fromJust $ Map.lookup "init" roomlist
       game = Game {
         history = [],
@@ -56,8 +56,7 @@ initGame roomlist eventlist =
         rooms = roomlist,
         lastId = 1,
         powers = [],
-        items = [],
-        allEvents = eventlist
+        items = []
       }
       (initializedGame, initOut) = runWriter $ foldM runAction game enterActs in
     initializedGame { history = [Command 0 "start" $ Just initOut]}
@@ -123,9 +122,6 @@ runAction game command =
          return game {items = filter (/= itemName) $ items game}
        IfPosessingItem itemName thenActs elseActs ->
          foldM runAction game (if itemName `elem` items game then thenActs else elseActs)
-       Event eventName -> do
-         tell $ fromJust $ Map.lookup eventName $ allEvents game 
-         return game
        PowerTrigger cmdstr ->
          let Power _ _ actions = fromJust $ find (powerMatches cmdstr) (powerDefinitions $ currentRoom game) in
            foldM runAction game actions

@@ -42,7 +42,7 @@ braced parser = do
 namedActions :: String -> Parser [Action]
 namedActions name = do
   string name
-  braced $ many action
+  braced $ many $ try action
 
 powerDeclaration :: Parser Power
 powerDeclaration = do
@@ -54,7 +54,7 @@ powerDeclaration = do
 action :: Parser Action
 action = whitespace >> choice actionParsers
   where
-    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser, gainItemParser, loseItemParser, ifPossessingParser, eventParser, synonymParser]
+    actionParsers = map try [respondParser, gainParser, loseParser, moveToParser, chooseByCountParser, gainItemParser, loseItemParser, ifPossessingParser, synonymParser]
 
 
 synonymParser :: Parser Action
@@ -80,12 +80,6 @@ moveToParser = do
   name : [] <- actionSpec "move-to"
   void stringAction
   return $ MoveToRoom name
-
-eventParser :: Parser Action
-eventParser = do
-  name : [] <- actionSpec "event"
-  void stringAction
-  return $ Event name
 
 chooseByCountParser :: Parser Action
 chooseByCountParser = do

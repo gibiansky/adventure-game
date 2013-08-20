@@ -42,31 +42,22 @@ main = do
   roomContents <- mapM readFile roomFilePaths
   let gameRooms = Map.fromList $ zipWith parseRoom roomContents roomFiles
 
-  allEventFiles <- getDirectoryContents eventDirectory
-  let eventFiles = filter (endswith ".js") allEventFiles
-      eventNames = map (replace ".js" "") eventFiles
-      eventFilePaths = map ((eventDirectory ++ "/") ++) eventFiles
-  eventContents <- mapM readFile eventFilePaths
-  let gameEvents = Map.fromList $ zip eventNames $ map wrapInScriptTag eventContents
-
-  print gameEvents
-
   -- Create a mutable variable where we store all game state
-  state <- newMVar $ initGame gameRooms gameEvents
+  st <- newMVar $ initGame gameRooms
 
-  quickHttpServe $ site state
+  quickHttpServe $ site st
 
 maxRequestSize ::  GHC.Int.Int64
 maxRequestSize = 10000
 
 site :: MVar Game -> Snap ()
-site state = do
+site st = do
   let useRoute :: (ByteString -> State Game ByteString) -> Snap ()
       useRoute rt = do
         input <- readRequestBody maxRequestSize
-        value <- liftIO $ takeMVar state
+        value <- liftIO $ takeMVar st
         let (response, newState) = runState (rt input) value
-        liftIO $ putMVar state newState
+        liftIO $ putMVar st newState
         liftIO $ print $ lastId newState
         trace (show response) $ writeLBS response
 

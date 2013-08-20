@@ -9,6 +9,13 @@ enter {
     You have gained the power to '_'. You can type '_' to look around you, or
     give it some arguments to examine a specific thing.
   }
+
+  gain hint {
+    In some cases, you may get stuck. Take some time to observe your
+    environment carefully. If you are really stuck, you can ask for a hint
+    using the '_' command. Note that each time you ask for a hint, you will get
+    a different and more revealing hint.
+  }
 }
 
 power observe {
@@ -83,9 +90,9 @@ power take picture {
 
       As you peel the picture off the door, a key that was taped to the back of
       it drops to the ground.
+      
+      You can look at the picture <a href="/static/pictures/1.jpg.part">here</a>.
     }
-
-    event "download-picture-1";
   }
 }
 
@@ -139,6 +146,8 @@ power observe picture {
       doesn't look like anything intelligible - just a bunch of auto-generated
       noise. However, you do notice that the back of the picture has the letters
       "GLA" scrawled on it.
+
+      You can look at the piece of the picture <a href="/static/pictures/1.jpg.part">here</a>.
     }
   } {
     respond {
@@ -158,5 +167,24 @@ power observe key {
     respond {
       You don't have a key.
     }
+  }
+}
+
+power hint {
+  choose-by-count hint {
+    The picture in front of you is important. 
+  } {
+    Take the picture off the wall.
+  } {
+    Remember that something fell out from behind the picture when you took it
+    off the wall.
+  } {
+    There's a key on the ground. Pick it up.
+  } {
+    If you have the key in hand, just open the door and it will let you out.
+  } {
+    take picture
+    take key
+    open door
   }
 }

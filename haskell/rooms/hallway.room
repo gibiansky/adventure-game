@@ -1,0 +1,117 @@
+enter {
+  respond {
+    You find yourself in a very narrow and dimly lit hallway. Behind you is
+    the koi- and goat-infested garden, and in front of you is a single door.
+    To the left of the door is a small stand with a computer terminal on it.
+
+    Remember, if you get stuck, use 'hint' to get some quick hints. The more
+    you use it, however, the more revealing the hints will become.
+  }
+}
+
+power observe {
+  respond {
+    You find yourself in a very narrow and dimly lit hallway. Behind you is
+    the koi- and goat-infested garden, and in front of you is a single door.
+    To the left of the door is a small stand with a computer terminal on it.
+  }
+}
+
+power observe terminal {
+  respond {
+    The terminal is an old, worn down thing. It is labeled "Challenge 1".
+
+    Someone scrawled, "We've been watching you... and know when you use
+    'nano'," on it. Eek!
+
+    You notice that Vim is running. You may want to investigate this Vim further.
+  }
+}
+power observe computer {
+  synonym observe terminal;
+}
+power observe computer terminal {
+  synonym observe terminal;
+}
+
+power observe vim {
+  respond {
+    You're looking at someone's ~/.vimrc file. It contains:
+
+    " After insallation, you can...
+    " Run :HoleOne to begin.
+    " Run :Done when done.
+    :Bundle 'gibiansky/vim-golf'
+    :BundleInstall
+    
+  }
+}
+
+power observe door {
+  respond {
+    The door is a relatively standard door...
+
+    The only unusual thing is the large red letters written on it:
+
+    | NO HEATHENS SHALL PASS.
+    | ONLY THE WORTHY SHALL PREVAIL. 
+    | EMACS USERS, TURN BACK NOW.
+
+    The door has a small keyboard built into it.
+  }
+
+  gain type {
+    Enter '_ &lt;code&gt;' into your prompt to enter a code into the keypad.
+  }
+}
+
+power type its-only-mooing-when-I-do-it {
+  respond {
+    Congratulations on the admission! I'm glad we finally agree.
+
+    The door lock clicks open; you should have no trouble opening it.
+  }
+
+  gain-item "Key";
+}
+
+power open door {
+  if-item "Key" {
+    respond {
+      You unlock the door, and proceed onwards.
+    }
+    lose-item "Key";
+
+    move-to hallway-2;
+  } {
+    respond {
+      The door is locked.
+    }
+  }
+}
+
+power hint {
+  choose-by-count hint {
+    You should observe the door, the terminal, and vim.
+  } {
+    Install Vundle and then install the package described by 'observe vim'.
+  } {
+    Try to complete the :HoleOne challenge. Type :Done at the end.
+  } {
+    If you succeed, you will get the keycode. If you have difficulty with the
+    challenge, type 'hint' more times for Vim hints.
+  } {
+    Try to use movement commands bigger than 'hjkl', such as 'w' for word or
+    'e' for end.
+  } {
+    Use movement commands such as searches with '/' in conjunction with
+    deleting or changing case.
+  } {
+    You can change the case of something to uppercase using the 'gU' command.
+    For example, 'gU/hi' will change everything until "hi" to uppercase.
+  } {
+    Use 'f' and 't' to move to certain letters without doing searches.
+  } {
+    Use 'gq' or 'J' to join lines.
+  }
+}

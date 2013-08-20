@@ -321,5 +321,28 @@ power observe picture {
 
       This is only part of the picture, though. You can tell it was neatly
       torn, so maybe you can find the other pieces somewhere?
+
+      You can look at the piece <a href="/static/pictures/1.jpg.part">here</a>.
+  }
+}
+
+power hint {
+  choose-by-count hint {
+    You need to open the gate somehow.
+  } {
+    Observe the items on the table, as well as the gate. Take them if you can.
+  } {
+    What was the gardener trying to do? Finish it for him.
+  } {
+    You probably want to rent out some goats.
+  } {
+    Use Google to find the goat rental website.
+  } {
+    Use the cell phone on the table to rent a goat. You need to pick up the cell phone.
+  } {
+    Call the number on the goat rental website using the call command.
+  } {
+    take cell phone
+    call 858-751-GOAT
   }
 }

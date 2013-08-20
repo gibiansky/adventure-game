@@ -1,0 +1,107 @@
+enter {
+  respond {
+    Once more, you find yourself in narrow and dark corridor, with a door at
+    the end of it.
+
+    As you pass through the doorway, you hear a loud click as the door shuts
+    behind you - and locks.
+
+    Once again, there is a computer terminal to the left of the door, and a
+    keypad attached to the door.
+  }
+}
+
+power observe {
+  respond {
+    Once more, you find yourself in narrow and dark corridor, with a door at
+    the end of it. The door locked behind you, so the only way to go is forward.
+
+    It looks like the first keycode challenge wasn't too difficult. The hallway
+    is lined with the skeletons of Emacs users and corporate Java programmers
+    who somehow managed to get past the first lock, but spent their last hours
+    trying to get the door ahead of you open.
+  }
+}
+
+power observe terminal {
+  respond {
+    The terminal is an old, worn down thing. It is labeled "Challenge 2".
+
+    Some unfortunate soul spent their last moments scratching, "Why doesn't M-x
+    butterfly work? An editor made by the devil... beware!"
+
+    As before, you notice that Vim is running on the terminal.
+  }
+}
+power observe computer {
+  synonym observe terminal;
+}
+power observe computer terminal {
+  synonym observe terminal;
+}
+
+power observe vim {
+  respond {
+    You're looking at someone's ~/.vimrc file. It contains:
+
+    " After insallation, you can...
+    " Run :HoleTwo to begin.
+    " Run :Done when done.
+    :Bundle 'gibiansky/vim-golf'
+    :BundleInstall
+    
+  }
+}
+
+power observe door {
+  respond {
+    The door is a relatively standard door...
+
+    The only unusual thing is the large red letters written on it:
+
+    | TREASURE YOUR LAST MOMENTS...
+    | OR TREASURE YOUR MODAL EDITORS.
+    | THE CHOICE IS YOURS.
+
+    The door has a small keyboard built into it.
+  }
+}
+
+power type everything-is-made-of-electrons {
+  respond {
+    Ah, yes, electrons... everything is made of them. It's why physics is
+    important in industry, right?
+
+    The door lock clicks open; you should have no trouble opening it.
+  }
+
+  gain-item "Key";
+}
+
+power open door {
+  if-item "Key" {
+    respond {
+      You unlock the door, and proceed onwards.
+    }
+    lose-item "Key";
+
+    move-to hallway-3;
+  } {
+    respond {
+      The door is locked.
+    }
+  }
+}
+
+power hint {
+  choose-by-count hint {
+    Use 'cw' to change one word.
+  } {
+    Use 'ctx' to change everything until the first 'x'.
+  } {
+    Use 'Ctrl-V' to do block select.
+  } {
+    Using 'c' during a block-select and then pressing <ESC> after you're done
+    applies the change to all the selected areas.
+  }
+}

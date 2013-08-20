@@ -106,6 +106,7 @@ power observe scratch marks {
 
 power open door {
     if-item "Hatchet" {
+      if-item "Piece of a Picture (SSCE)" {
         respond {
             You try to open the revolving glass door, but it refuses to budge. You
             try harder - even putting all your weight into it - yet it still
@@ -115,18 +116,19 @@ power open door {
             forcefully into the glass wall nearby. The glass shatters, and,
             ignoring the spray of sharp shards of glass, you happily proceed
             onwards.
-
-            lose-item "Hatchet";
-            lose-item "Lamb Steak";
-            lose-item "Business Card";
-            lose-item "Candle";
         }
 
+        lose-item "Hatchet";
+        lose-item "Lamb Steak";
+        lose-item "Fish Food";
+        lose-item "Candle";
+
+        move-to hallway; 
+      } {
         respond {
-            THE END!
-
-            move-to hallway; 
+          You should make sure to pick up the piece of picture in the chest before leaving.
         }
+      }
     } {
         respond {
             You try to open the revolving glass door, but it refuses to budge. You
@@ -251,83 +253,122 @@ power open chest {
     respond {
         You open the chest... and it's almost empty.
 
-        At the bottom of the chest is a small business card, colored white with
-        streaks of... orange?
+        At the bottom of the chest is a small can of fish food, colored white with
+        streaks of... orange? 
+
+        There's also another piece of a picture! Maybe it'll help you figure
+        out what the first one is supposed to be.
     }
 }
 
-power observe card  {
-    synonym observe business card;
-}
-
-power take card {
-    synonym take business card;
-}
-
-power observe business card {
+power take picture {
+  if-item "Piece of a Picture (SSCE)" {
     respond {
-        At the bottom of the chest is a small business card, colored white with
+      You're already picked up the picture.
+    }
+  } {
+    gain-item "Piece of a Picture (SSCE)" {
+      You've picked up your second piece of a picture.
+
+      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a>.
+    }
+  }
+  
+}
+
+power observe picture {
+  if-item "Piece of a Picture (SSCE)" {
+    respond {
+      You have one piece of a picture.
+      
+      You can look at it <a href="/static/pictures/1.jpg.part">here</a>.
+    }
+  } {
+    respond {
+      You have two pieces of the picture.
+
+      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a>.
+    }
+  }
+}
+power observe pictures {
+  synonym observe picture;
+}
+
+power observe fish food {
+    respond {
+        At the bottom of the chest is a small can of fish food, colored white with
         streaks of... orange? 
         
         Or is that bright red? You might even call it blood red...  Though, you
         also consider calling it blue. Surprisingly, you decide against it.
 
-        The business card has a few more of the strange crosses and circles on
-        it that you saw in the painting on the altar. Below them is the inscription, 
-        "REDEEM WITH ME FOR THE ULTIMATE REWARD*".
-
-        You wonder what the asterisk is there for.
-
-        It is signed, as though it were a letter... "Sincerely, your fish friend".
-
-        You are no longer sure you want to know what the asterisk is there for.
+        The can of fish food is cheerfully labelled, "Lucky's Carnivorous Fish
+        Food", probably purposefully ambiguous as to what noun 'Carnivorous'
+        describes...
     }
 }
+power observe food {
+    synonym observe fish food;
+}
 
-power take business card {
-    if-item "Business Card" {
+power take fish food {
+    if-item "Fish Food" {
         respond {
-            There's only one business card in the chest.
+            You already have the fish food.
         }
     } {
         respond {
-            You pick up the business card and put it in your pocket.
+            You pick up the can of fish food and put it in your pocket.
         }
 
         gain give {
-            You can now give things, including this business card, to other
-            entities using the '_' command. To _ a ball to a boy, enter "_ ball boy".
+            You can now give things, including fish food, to other entities
+            using the '_' command. To _ a ball to a boy, enter "_ ball boy".
         }
 
-        gain-item "Business Card";
+        gain-item "Fish Food";
     }
 }
+power take food {
+  synonym take fish food;
+}
 
-power give card koi {
-    if-item "Business Card" {
-        lose-item "Business Card";
+power give fish food koi {
+    if-item "Fish Food" {
+        lose-item "Fish Food";
 
         respond {
-            You reach into the pond and hand the business card to the koi.
+            You reach into the pond and hand the can of fish food to the koi.
 
-            The koi smiles and says, cackling, "Welcome, my friend! This is your
-            Ultimate reward: a game of Ultimate Tic Tac Toe! When you defeat me, I
-            will give you what you are longing for".
+            The koi smiles and says, "Man, it's been ages since anyone fed me! I owe you one."
 
             He seems like quite a friendly guy, too. Or maybe she seems like a
             friendly gal. You're not sure. You've never had to sex a fish. You do
             know a friend who might be able to help, though she's really a salmon
             specialist... Anyway.
+
+            As a gesture of appreciation, the koi reaches behind some floating
+            plants and takes out a large metal hatchet. "Here you go," he says, "this might help you."
         }
 
-        gain play {
-            You can try your hand at Ultimate Tic Tac Toe against the koi by typing '_'.
+        gain-item "Hatchet" {
+          You now have a hatchet! This should help you get out of this goddamned garden!
         }
     } {
         respond {
             You don't have anything to give to the koi.
         }
     }
+}
+power give food koi {
+  synonym give fish food koi;
+}
+power give food fish {
+  synonym give fish food koi;
+}
+power give fish food fish {
+  synonym give fish food koi;
 }
 
 power give candle koi {
@@ -338,19 +379,16 @@ power give candle koi {
         }
     } {
         respond {
-            You don't have anything to give to the koi.
+            You don't have a candle to give to the koi.
         }
     }
 }
-
 power give candle fish {
     synonym give candle koi;
 }
-
 power give candles koi {
     synonym give candle koi;
 }
-
 power give candles fish {
     synonym give candle koi;
 }
@@ -369,31 +407,28 @@ power give candle goat {
         }
     }
 }
-
 power give candles goat {
     synonym give candle goat;
 }
 
-power give card fish {
-    synonym give card koi;
-}
-
-power give business card koi {
-    synonym give card koi;
-}
-
-power give business card fish {
-    synonym give card koi;
-}
-
-power play {
-    event ultimate-tic-tac-toe;
-}
-
-power take hatchet {
-    respond {
-        You now have a hatchet! This should help you get out of this goddamned garden!
-    }
-
-    gain-item "Hatchet";
+power hint {
+  choose-by-count hint {
+    You need to open the revolving door somehow.
+  } {
+    Observe everything, including the pond, door, koi, and altar.
+  } {
+    Take a look at the chest next to the altar.
+  } {
+    Take the items from the chest.
+  } {
+    Feed the Koi. It's hungry!
+  } {
+    Try opening the door again!
+  } {
+    open chest
+    take food
+    take picture
+    give food koi
+    open door
+  }
 }

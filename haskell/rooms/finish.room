@@ -1,0 +1,110 @@
+enter {
+    respond {
+        After completing the last Vim Golf challenge, summoning a flock of
+        vampire ducklings, and passing through the previously-locked door,
+        you find yourself in a completely unadorned white room.
+
+        You really expected something more grandiose. The room is completely
+        unadorned. Above you there's a light, and almost nothing else.
+
+        The only interesting thing in the room is a piece of a picture, taped
+        to the far wall. 
+    }
+}
+
+power observe light {
+    respond {
+        It's just a light.
+    }
+}
+power take light {
+    respond {
+        The light is affixed to the ceiling. No matter how hard you try, you
+        can't pull it off.
+
+        It's a good thing no one else is around, otherwise you'd look like an
+        idiot trying.
+    }
+}
+
+power observe picture {
+  if-item "Piece of a Picture (ILING)" {
+    respond {
+      You have two pieces of the picture. You should probably collect the last piece.
+
+      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a>.
+    }
+  } {
+    respond {
+      You have all the pieces of the picture... now you just need to figure out how they fit together.
+
+      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a> and <a href="/static/pictures/3.jpg.part">here</a>.
+    }
+  }
+}
+power observe pictures {
+    synonym observe picture;
+}
+
+power take picture {
+  if-item "Piece of a Picture (ILING)" {
+    respond {
+        You already have the last piece of the picture; you just need to figure
+        out how they fit together...
+
+        The painting may give you a clue.
+    }
+  } {
+    gain-item "Piece of a Picture (ILING)" {
+        You tear the last piece of the picture off the wall... and notice that
+        the three pieces almost fit together! You just need to figure out how...
+    }
+
+    respond {
+      As you tear the picture off the wall, you see that it was covering up a
+      small painting.  <a href="/static/imgs/directions.jpg">This painting</a> seems very instructive to you.
+
+      This concludes the text adventure portion of this puzzle. Please proceed
+      to the next location, as dictated by the decrypted pictures.
+    }
+  }
+}
+
+power observe painting {
+    respond {
+      After tearing the picture off the wall, you noticed that it was covering up a
+      small painting.  <a href="/static/imgs/directions.jpg">This painting</a> seems very instructive to you.
+    }
+}
+
+power hint {
+    choose-by-count hint {
+        You should take the picture.
+    } {
+        Make sure you've looked at the painting in detail. It tells you what to
+        do with the picture fragments.
+    } {
+        The painting is a rhebus - each piece represents part of the process
+        you need to go through to decrypt the pictures.
+    } {
+        The painting is describing a series of Unix commands. However, some of
+        the commands are things  you might need to implement.
+    } {
+        The pipe is a Unix pipe. The top part gets piped into the bottom part.
+    } {
+        The top part tells you how to combine all the pictures. Combine them in order, using a cat.
+    } {
+        cat 1.png.part 2.png.part 3.png.part > encrypted.png;
+        decryption-command encrypted.png;
+    } {
+        The circuit element tells you how to decrypt the data.
+    } {
+        Use 'exclusive or' on the data with the correct decryption key. Then view as an image!
+    } {
+        The key is given to you by the writing on the pictures, repeated many times.
+    } {
+        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's concat $ repeat "GLASSCEILING".
+    } {
+        There are no more hints. The picture is available <a href="/static/pictures/decrypted.png">here</a>.
+    }
+}

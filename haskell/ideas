@@ -1,0 +1,273 @@
+Unimplemented:
+
+Vim Challenge:
+=============
+    - In a corridor after the Koi room.
+    - Three doors.
+    - First door is covered by a picture! ("SSCE")
+    - Each door has a computerized keypad.
+    - Gain power 'unlock'
+        - unlock spawns a vim event.
+        - gives you some input text
+        - tells you what the output text needs to be
+        - lets you enter a register string
+        - sends to vim server
+        - waits for response
+        - if success, tells you the keycode
+        - then type 'unlock <keycode>'
+        - and door opens
+
+Final Challenge:
+    - After the last door, you come to a dead end.
+    - On the wall is another picture ("ILING")
+    - When you take down the picture, there's a sign that describes how to concatenate the pictures and decode them. 
+      
+
+Random Crap Ideas:
+===============================================
+- Random stats about goats eating 8 pounds per day, being in the military, etc.
+  Postcards?
+
+- Congrats. You got the answer? Would you like a medal? You would? Well too
+  bad. You're not getting one. 
+
+- Find a large mug or stick or something and gain the power to "bash". If you
+  try to "bash", the command raises an error about zsh being better. It kindly
+  redirects you to zsh and then the prompt becomes random colors.
+
+- It's only mooing when you do it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------
+
+Final Challenge:
+================
+    - Task: guess the phrase "sky cube"
+
+    The corridor leads to yet another room. This room is almost completely barren. 
+
+    The two things in it are a large sign and a very futuristic-looking computer.
+
+    on "observe sign":
+        The sign says "Welcome to the Quantum Teleportation Device."
+
+        There's also a subscript, which reads, "Be aware that this device does not, in any way, utilize quantum physics for the purpose of teleportation.
+        It is quantum solely because the teleportation is quantized - we promise you that you will not be fractionally telported.
+        In the off chance that this is what happens, we promise to reimburse you for all damages, provided that you are still around to claim them.
+
+        The're also a really small warning which in bright red reads, "Warning: This device is magic."
+
+    on "observe computer":
+        The computer is attached to a keyboard. On screen you see a game of hangman, with eight spaces in the word or phrase.
+
+        It's labeled, "Where would you like to teleport?"
+
+        > You gained the power to "type".
+
+    on "type sky cube":
+        The computer beeps loudly. Beep beep. Bloop bloop.
+
+        You are being teleported to the Sky Cube.
+
+        (Go there. You have completed this game. Congratulations.)
+
+    on "type <not 'sky cube'>":
+        The computer beeps loudly. Beep beep. Bloop bloop. 
+        
+        The world begins to fade around you, slowly turning to black, and -- BZZZZT.
+
+        BEEEEEP. 
+
+        You are once more back the teleporter room. Looks like that wasn't a valid location.
+
+        The hangman looks slightly more unhappy than he was when you came in.
+        But then again, he's condemned to die anyways, so what's there to be
+        happy about? His life must really suck.
+
+        Luckily, you're doesn't. Unlike him, you get to try again.
+
+
+There are several challenges. Each challenge yields a prize which is suggestive
+towards "sky cube".  The sky cube is where the physical part of the present is.
+
+You start out in a very weird mansion and explore the rooms. Each of the rooms
+contains a separate challenge. Rooms have bizarre and amusing descriptions.
+
+Challenges are linear.
+Order:
+    Starter room - sky, hawk
+    Goat Challenge - cubes
+    Ultimate Challenge - sky
+    Vim Challenge - cube
+    Last Challenge
+
+Starter room:
+=============
+    You are on in a strange room. 
+    [room description]
+    Are you okay with that?
+        - invalid: I have no idea what you mean. Just say 'yes' or 'no'. Who do you think I am, Eliza?
+        - yes: Good! [if immediately yes: You didn't really have a choice anyway.]
+                     [else: I'm glad you're so agreeable.]
+        - no: You should really be more okay with it. Try again.
+              OR
+              Are you sure that's a good idea? It might lead to some serious cognitive dissonance issues later on. Try again.
+              OR
+              Maybe you should reconsider saying "no" again and just say "yes".
+              OR
+              I'm not letting you go anywhere until you say yes. So just say "yes".
+
+    [if not immediate yes: Awesome. You're learning. Let's try the next one!]
+    [if immediate yes: Since you've started agreeing with me, why not continue? Let's try the next one.]
+
+    As of now, you've been appointed to the position of Head Scapegoat.
+    Do you accept this position?
+        - invalid: Sorry, I would take a non-yes/no answer, but it's your birthday. Special case here.
+        - yes: Sweet. Silver one, Tasha zero.
+        - no: I'm can't let you do that, Da-- Tasha.
+              YOU. SHALL. NOT. PASS. Erm. Say no. Whatever. FLEE YOU FOOLS.
+              right_answer = "yes"; me = &right_answer; // Pointing you in the right direction.
+
+    You have gained the power to "observe". Try observing your environment by typing "observe" into the prompt.
+
+    on "observe *":
+        You notice that this room as well as this game is pretty terrible so far. But that's not all..
+
+        You also notice that you've completed the first challenge.  Your prize
+        is a hooloovoo.  Make sure to consult it later, as it may be quite
+        important.
+
+        The room you're in is a large circular room. It's church-sized. Really damn big.
+        There's several hundred doors along the edge of the room. You could probably try them all.
+
+        > You have gained the power to "consult".
+    on "consult hooloovoo":
+        Hello, I am a Hooloovoo. The only information known about me is what
+        color I am, so I guess that's all you can really hope to get out of me.
+        I'm almost as bad as the pikka bird. Anyway, you're on your own. 
+
+        By the way, you really should pick-a-bird. I'll give you one of your choice.
+        The right one will lead you onwards.
+
+        Also, my consultant fee is a few kilocents per millibit. I'll send you
+        an invoice in a bit. (That one will cost you, too.)
+              
+        > You have gained the power to "become-totally-broke".          
+        > You have gained the power to "guess-color".
+        > You have gained the power to "choose-bird".
+
+    on "guess-color blue":
+        Good job. I'm proud of you. Are you proud of yourself? Good. Me too.
+
+        You now possess the concept of blue.
+
+    on "choose-bird hawk":
+        Eh, sure, why not. That's an okay answer. Go ahead, take one.
+
+        You now possess a hawk. It somehow points towards one of the doors, suggesting you open that door.
+        > You gain the power to "open-door".
+        
+    on "choose-bird <not hawk>:"
+      That's a good bird, I guess. I'm not sure it's the one you want, though.
+      I'd go for this one.
+        [outline of a hawk]
+      
+      if first time: > You have gained the power of "request-hint".
+
+    on "open-door:"
+        You leave the room feeling incredibly self-satisfied. You've gotten
+        past the stupid room, now maybe this will become a bit less silly?
+
+        Ahahahahah. That was a good joke.
+
+        Be observant. 
+    
+
+Ultimate Tic Tac Toe Challenge:
+============================================
+    - Finds a chest with "Ultimate T/F" inscribed on it
+    -  Thinks its ultimate frisbee?
+    - "You can faintly make out the word 'Ultimate', and some scratches afterwards"
+    - turns out she opens it and its a game of ultimate tic tac toe
+    - beat it to get the "prize"
+    - the prize is something that hints towards sky:
+        A plaque labeled "What's up?"
+        examining the plaque:
+            You notice the plaque has something drawn on it. It looks like you sitting outside, starting awkwardly upwards.
+            You're in the middle of Linde field. So, actually, what's up?
+
+Goat Challenge:
+=========================================
+    - Task: Find rentagoat.com address and phone number closest to LA.
+    - Room contains:
+        table
+        some random crap
+        several postcards that have pictures of goats on them
+        five broken lawnmowers
+        a bloodstained napkin with rentagoat.com on it and "india street"
+        a cell phone
+        an entrance to a garden
+            which is so overgrown you can't get in
+
+    - Solution: examine items. realize you need goats.
+                find goat nearest LA.
+                find phone number.
+                'call' the phone number.
+                goats show up within seconds, chew through the garden.
+                    (provide some funny stats about goats)
+
+    - Notes: once you pick up the phone, you get a new ability, "call".
+    - Prize: something that hints at sky or cube
+        You find something that looks like an incredibly bizarre paper towel dispenser.
+        It seems to have some text and directions on it.
+
+        Examining it:
+            The bizarre paper towel dispenser is actually an infinite list.
+            It's labelled "take N", followed by a bizarre string of letters and numbers: "$map(^3)[1..]" 
+            It also has a picture of a programmer looking thoroughly confused.
+            You examine it some more. Nothing seems to change.
+            You gain the power to "harass". Try harassing this thing.
+            You feel an overwhelming urge to figure out what type of object thing thing dispenses, since it's clearly not paper towels.
+
+            harass (paper towel dispenser|dispenser|infinite list|list|thing|this thing):
+                You try to harass the infinite list. Nothing changes. It is immutable. This is probably why the programmer is confused. Why is everything immutable?!
+
+
+Vim Challenge:
+==============
+    - Task: Complete several vimgolf holes.
+    - On start:
+        - Give her vim functions to put in ~/.vimrc
+        - These functions are VimGolfStart() and VimGolfEnd()
+    - Each hole reveals next one
+    - Need good enough score
+        - if score is not good enough, examines keystrokes and gives suggestions
+            - suggestions:  avoid "hjkl"
+                            use searches / and ? for movement
+                            record and playback with q and @
+                            use search and replace
+                            use n and N for repeating searches
+                            install vim-repeat via Bundle
+    - Each hole also reveals a few lines of vimscript code 
+        - these lines of code are not necessary consecutive!
+        - they can consist of bizarre mappings
+        - last hole reveals a single line of code which draws a cube in ASCII 
+    - Flavortext, upon completing last hole:
+        Gained power: "hallucinate"
+        hallucinate: You can hallucinate some objects into being, especially if you've seen them drawn in ASCII before.
+        "hallucinate cube" -- gives you a cube in inventory
+
