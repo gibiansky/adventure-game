@@ -43,7 +43,10 @@ power observe vim {
     " Run :Done when done.
     :Bundle 'gibiansky/vim-golf'
     :BundleInstall
-    
+
+    Administrative Note: You will need to actually use Vim for this. MacVim
+    works as well.  When you retry, just quit all windows - ignore any warnings
+    or dialog boxes about unsaved files. The ":qa!" command may be your friend.
   }
 }
 

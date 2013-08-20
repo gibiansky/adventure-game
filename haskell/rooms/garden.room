@@ -313,7 +313,9 @@ power take picture {
     }
   } {
     gain-item "2nd Piece of a Picture (SSCE)" {
-      You've picked up your second piece of a picture.
+      You've picked up your second piece of a picture. Just like the first
+      picture has "GLA" scrawled on it, this one has "SSCE" scrawled in the
+      same handwriting.
 
       You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }
@@ -324,13 +326,16 @@ power take picture {
 power observe picture {
   if-item "2nd Piece of a Picture (SSCE)" {
     respond {
-      You have one piece of a picture.
+      You have one piece of a picture. The picture is impossible to read and
+      has "GLA" scrawled on it on the back.
       
       You can look at it <a href="/static/pictures/encoded.part1">here</a>.
     }
   } {
     respond {
-      You have two pieces of the picture.
+      You have two pieces of the picture.  Just like the first
+      picture has "GLA" scrawled on it, this one has "SSCE" scrawled in the
+      same handwriting.
 
       You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }

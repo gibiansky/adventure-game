@@ -9,6 +9,11 @@ enter {
 
         The only interesting thing in the room is a piece of a picture, taped
         to the far wall. 
+
+        This is the last challenge of the adventure game. You may find it quite
+        difficult and time consuming - remember that you have the 'hint'
+        command available to you! Repeating it many times will give you
+        incrementally more useful hints.
     }
 }
 
@@ -30,13 +35,15 @@ power take light {
 power observe picture {
   if-item "3rd Piece of a Picture (ILING)" {
     respond {
-      You have all the pieces of the picture... now you just need to figure out how they fit together.
+      You have all the pieces of the picture... now you just need to figure out
+      how they fit together, and how the writing on the back of them fits together.
 
       You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a> and <a href="/static/pictures/encoded.part3">here</a>.
     }
   } {
     respond {
-      You have two pieces of the picture. You should probably collect the last piece.
+      You have two pieces of the picture. You should probably collect the last
+      piece. The first two have "GLA" and "SSCE" scrawled on them in the back.
 
       You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }
@@ -50,7 +57,7 @@ power take picture {
   if-item "3rd Piece of a Picture (ILING)" {
     respond {
         You already have the last piece of the picture; you just need to figure
-        out how they fit together...
+        out how they fit together, and what the text on the back is for.
 
         The painting may give you a clue.
     }
@@ -58,6 +65,9 @@ power take picture {
     gain-item "3rd Piece of a Picture (ILING)" {
         You tear the last piece of the picture off the wall... and notice that
         the three pieces almost fit together! You just need to figure out how...
+
+        The last piece has "ILING" scrawled on the back, in the same
+        handwriting as the previous scrawls.
     }
 
     respond {
@@ -105,7 +115,14 @@ power hint {
     } {
         Use 'exclusive or' on the data with the correct decryption key. Then view as an image!
     } {
+        The image format is a JPEG.
+    } {
+        Make sure to look at the writing on the pictures, which you can see
+        next to the item names on the top left.
+    } {
         The key is given to you by the writing on the pictures, repeated many times.
+    } {
+        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's cycle "GLASSCEILING".
     } {
         You may find the Python functions 'ord' and 'chr' useful, because XOR doesn't work on strings.
     } {
@@ -121,8 +138,6 @@ power hint {
     
     } {
         In Python, the ^ operator lets you take bitwise xor of two integers.
-    } {
-        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's cycle "GLASSCEILING".
     } {
         You can use the Haskell decoder available <a href="/static/code/Xor.hs">here</a>.
         Alternatively, you can use the Python decoder available <a href="/static/code/decode.py">here</a>.
