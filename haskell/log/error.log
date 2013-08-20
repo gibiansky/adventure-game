@@ -128,3 +128,7 @@ expecting "\""
 [19/Aug/2013:21:48:11 -0700] Server.httpServe: START, binding to [http://0.0.0.0:8000/]
 [19/Aug/2013:21:50:37 -0700] Server.httpServe: SHUTDOWN
 [19/Aug/2013:21:50:37 -0700] Server.httpServe: BACKEND STOPPED
+[20/Aug/2013:10:10:30 -0700] Server.httpServe: START, binding to [http://0.0.0.0:8000/]
+[20/Aug/2013:10:11:19 -0700] Server.httpServe: SHUTDOWN
+[20/Aug/2013:10:11:19 -0700] Server.httpServe: BACKEND STOPPED
+[20/Aug/2013:10:11:43 -0700] Server.httpServe: START, binding to [http://0.0.0.0:8000/]

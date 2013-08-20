@@ -16,12 +16,8 @@
         <script src="/static/thirdparty/backbone/js/underscore.min.js"></script>
         <script src="/static/thirdparty/backbone/js/backbone.min.js"></script>
 
-        <!-- Processing.js, for my scripts -->
-        <script src="/static/thirdparty/processing/processing.min.js"></script>
-
         <!-- My scripts -->
         <script src="/static/js/adventure.js"></script>
-        <script src="/static/js/ultimate.js"></script>
 
         <!-- Bootstrap customizations -->
         <style>
@@ -108,6 +104,7 @@
 
             #sidebar {
                 background-color: rgba(0, 0, 0, 0.6);
+                position: relative;
             }
 
             #main {
@@ -152,6 +149,19 @@
             .inline-image {
               border: 5px solid black;
             }
+
+            #hint-text {
+                font-weight: bold;
+                font-family: serif;
+                color: rgb(235, 235, 235);
+                position: absolute;
+                top: 300px;
+                width: 85%;
+                text-align: center;
+                background: rgba(0, 0, 0, 0.75);
+                border-radius: 15px;
+                border: 2px solid rgb(100, 100, 100);
+            }
         </style>
 
         <script type="text/template" id="command-template">
@@ -168,6 +178,21 @@
                 <span class="prompt">tasha@enquack ~ $</span> <%= text %>
             </div>
         </script>
+
+        <script type="text/template" id="hint-text-template">
+            <div id="hint-text">
+                <hr />
+                Remember that you can use the <span style="font-family: monospace; color: rgb(190, 190, 240);">hint</span> command when
+                you're stuck. Don't stay stuck for too long!
+                <hr />
+            </div>
+        </script>
+
+        <script type="text/javascript">
+            window.onbeforeunload = function() {
+                return "Are you sure you want to leave? (Game state is saved.)"
+            };
+        </script>
     </head>
 
     <body onload="loadGame();">
@@ -181,7 +206,9 @@
             <div class="row">
 
                 <div class="span3 fill">
-                    <div id="sidebar" class="rounded-box"> </div>
+                    <div id="sidebar" class="rounded-box">
+                     
+                    </div>
                 </div>
 
                 <div class="span9 fill">

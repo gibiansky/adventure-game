@@ -66,6 +66,17 @@ power observe door {
     The door has a small keyboard built into it.
   }
 }
+power observe keypad {
+    respond {
+        The keyboard is just a keyboard... built into the door.
+
+        It is waiting for you to enter the correct code.
+    }
+}
+power observe keyboard {
+    synonym observe keypad;
+}
+
 
 power type everything-is-made-of-electrons {
   respond {
@@ -103,5 +114,7 @@ power hint {
   } {
     Using 'c' during a block-select and then pressing <ESC> after you're done
     applies the change to all the selected areas.
+  } {
+    Look in the vim-golf.vim source code for the answer if the limit is unreasonable.
   }
 }

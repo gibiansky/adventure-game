@@ -1,5 +1,10 @@
 enter {
     synonym observe;
+
+    respond {
+        Remember that you still have the 'hint' command at your disposal if you
+        don't know what to do next.
+    }
 }
 
 power observe {
@@ -26,7 +31,7 @@ power observe pond {
         | DO NOT FEED THE KOI.
         | DO NOT LOOK AT THE KOI.
         | DO NOT THINK ABOUT THE KOI.
-        | THE KOI DO NOT EXIST.
+        | THE KOI DOES NOT EXIST.
 
         A rather long inscription to the left warns you:
 
@@ -62,9 +67,18 @@ power observe koi {
         Somehow, it smiles... and waits. What is it waiting for?
     }
 }
-
 power observe fish {
     synonym observe koi;
+}
+
+power take koi {
+    respond {
+        As you try to reach into the water to grab the koi, the koi swims away,
+        cackling gleefully. It has no intention of being taken.
+    }
+}
+power take fish {
+    synonym take koi;
 }
 
 power observe door {
@@ -106,7 +120,7 @@ power observe scratch marks {
 
 power open door {
     if-item "Hatchet" {
-      if-item "Piece of a Picture (SSCE)" {
+      if-item "2nd Piece of a Picture (SSCE)" {
         respond {
             You try to open the revolving glass door, but it refuses to budge. You
             try harder - even putting all your weight into it - yet it still
@@ -158,13 +172,27 @@ power observe rose bush {
         Are you proud of yourself? Are you happy about what you've done? You monster!
     }
 }
-
 power observe rose bushes {
     synonym observe rose bush;
 }
-
 power observe roses {
     synonym observe rose bush;
+}
+
+power take bushes {
+    respond {
+        The bushes grumble at you very vocally when you try to take them, so
+        you decide to back off.
+    }
+}
+power take roses {
+    synonym take bushes;
+}
+power take rose bushes {
+    synonym take bushes;
+}
+power take rose bush {
+    synonym take bushes;
 }
 
 power observe altar {
@@ -189,11 +217,26 @@ power observe pedestal {
     }
 }
 
+power observe painting {
+    respond {
+        It's just a bizarre painting.
+    }
+}
+power take painting {
+    respond {
+        The painting refuses to be detached from the altar, no matter how hard
+        you try.
+    }
+}
+
 power observe candles {
     respond {
         They're candles. You briefly consider whether goats eat candles. They
         probably don't, but who knows. Sounds like a job for science... later.
     }
+}
+power observe candle {
+    synonym observe candles;
 }
 
 power take candles {
@@ -204,7 +247,9 @@ power take candles {
     } {
         gain-item "Candle";
         respond {
-            You pick up a candle... for future science? You are a terrible person.
+            You pick up a candle... You briefly consider whether goats eat
+            candles. They probably don't, but who knows. Maybe it's worth a
+            try.
         }
     }
 }
@@ -234,10 +279,8 @@ power observe chest {
         metal that is only there to convince you that the chest is important.
 
         There used to be some sort of inscription on it, but it's so old that
-        it's mostly faded. You can barely make out the word "ULTIMATE", but
-        that's it.
-
-        You wonder what's inside the chest.
+        it's mostly faded. You can barely make out the words "FEED THE DEMONS",
+        but that's it. You can feel the chest longing to be open, too.
     }
 }
 
@@ -253,41 +296,43 @@ power open chest {
     respond {
         You open the chest... and it's almost empty.
 
-        At the bottom of the chest is a small can of fish food, colored white with
-        streaks of... orange? 
+        There are only two things in the chest.
 
-        There's also another piece of a picture! Maybe it'll help you figure
+        There's another piece of a picture! Maybe it'll help you figure
         out what the first one is supposed to be.
+
+        Also at the bottom of the chest is a small can of fish food, colored
+        white with streaks of... orange? 
     }
 }
 
 power take picture {
-  if-item "Piece of a Picture (SSCE)" {
+  if-item "2nd Piece of a Picture (SSCE)" {
     respond {
       You're already picked up the picture.
     }
   } {
-    gain-item "Piece of a Picture (SSCE)" {
+    gain-item "2nd Piece of a Picture (SSCE)" {
       You've picked up your second piece of a picture.
 
-      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a>.
+      You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }
   }
   
 }
 
 power observe picture {
-  if-item "Piece of a Picture (SSCE)" {
+  if-item "2nd Piece of a Picture (SSCE)" {
     respond {
       You have one piece of a picture.
       
-      You can look at it <a href="/static/pictures/1.jpg.part">here</a>.
+      You can look at it <a href="/static/pictures/encoded.part1">here</a>.
     }
   } {
     respond {
       You have two pieces of the picture.
 
-      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a>.
+      You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }
   }
 }
@@ -311,6 +356,9 @@ power observe fish food {
 power observe food {
     synonym observe fish food;
 }
+power observe can {
+    synonym observe fish food; 
+}
 
 power take fish food {
     if-item "Fish Food" {
@@ -332,6 +380,9 @@ power take fish food {
 }
 power take food {
   synonym take fish food;
+}
+power take can {
+    synonym take fish food; 
 }
 
 power give fish food koi {
@@ -398,9 +449,8 @@ power give candle goat {
         respond {
             You hand a candle to a nearby goat. It gladly munches on it, and
             then bursts into flame a few seconds later.
-
-            gain-item "Lamb Steak";
         }
+        gain-item "Lamb Steak";
     } {
         respond {
             You don't have anything to give to a goat.
@@ -409,6 +459,14 @@ power give candle goat {
 }
 power give candles goat {
     synonym give candle goat;
+}
+
+power take goat {
+    respond {
+        As you try to pick up a goat, the goat decides you look very plant-like
+        and tries to eat you. You drop the goat in surprise, though honestly,
+        you really shouldn't be surprised anymore.
+    }
 }
 
 power hint {
@@ -421,9 +479,13 @@ power hint {
   } {
     Take the items from the chest.
   } {
+    The items in the chest include some fish food you might want to take.
+  } {
     Feed the Koi. It's hungry!
   } {
     Try opening the door again!
+  } {
+    There are no more small hints - the next hint is very revealing!
   } {
     open chest
     take food

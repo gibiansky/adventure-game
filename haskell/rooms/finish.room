@@ -28,17 +28,17 @@ power take light {
 }
 
 power observe picture {
-  if-item "Piece of a Picture (ILING)" {
-    respond {
-      You have two pieces of the picture. You should probably collect the last piece.
-
-      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a>.
-    }
-  } {
+  if-item "3rd Piece of a Picture (ILING)" {
     respond {
       You have all the pieces of the picture... now you just need to figure out how they fit together.
 
-      You can look at them <a href="/static/pictures/1.jpg.part">here</a> and <a href="/static/pictures/2.jpg.part">here</a> and <a href="/static/pictures/3.jpg.part">here</a>.
+      You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a> and <a href="/static/pictures/encoded.part3">here</a>.
+    }
+  } {
+    respond {
+      You have two pieces of the picture. You should probably collect the last piece.
+
+      You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }
   }
 }
@@ -47,7 +47,7 @@ power observe pictures {
 }
 
 power take picture {
-  if-item "Piece of a Picture (ILING)" {
+  if-item "3rd Piece of a Picture (ILING)" {
     respond {
         You already have the last piece of the picture; you just need to figure
         out how they fit together...
@@ -55,7 +55,7 @@ power take picture {
         The painting may give you a clue.
     }
   } {
-    gain-item "Piece of a Picture (ILING)" {
+    gain-item "3rd Piece of a Picture (ILING)" {
         You tear the last piece of the picture off the wall... and notice that
         the three pieces almost fit together! You just need to figure out how...
     }
@@ -107,9 +107,25 @@ power hint {
     } {
         The key is given to you by the writing on the pictures, repeated many times.
     } {
-        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's concat $ repeat "GLASSCEILING".
+        You may find the Python functions 'ord' and 'chr' useful, because XOR doesn't work on strings.
     } {
-        You can use the decoder available <a href="/static/haskell/Xor.hs">here</a>.
+        To open and use files in Python, use
+        
+        with open(filename, "r") as reader:
+        ... data = reader.read()
+        ... # code
+        
+        with open(filename, "w") as writer:
+        ... # code
+        ... writer.write(data)
+    
+    } {
+        In Python, the ^ operator lets you take bitwise xor of two integers.
+    } {
+        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's cycle "GLASSCEILING".
+    } {
+        You can use the Haskell decoder available <a href="/static/code/Xor.hs">here</a>.
+        Alternatively, you can use the Python decoder available <a href="/static/code/decode.py">here</a>.
     } {
         There are no more hints. The decrypted picture is available <a href="/static/pictures/decrypted.png">here</a>.
     }

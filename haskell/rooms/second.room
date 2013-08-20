@@ -7,6 +7,10 @@ enter {
 
     Remember, you can always 'observe' your surroundings to find out more.
   }
+
+  respond {
+    If you get stuck, don't forget that you can use the 'hint' command to help you out!
+  }
 }
 
 power observe {
@@ -70,7 +74,7 @@ power observe napkin {
     knows - what if there's an ongoing murder investigation? You wouldn't want to
     get your DNA on the thing.
 
-    The note has a few scribbles on it, among them the URL "rentagoat.com" with
+    The note has a few scribbles on it, among them the URL "http://www.rentagoat.com" with
     the label "SAVIOURS" underlined several times next to it. It looks like
     the author started writing a phone number, too, but never finished it...
 
@@ -273,6 +277,15 @@ power call 858-751-4628 {
 
     gain-item "Goat";
   }
+}
+power call 415-642-7170 {
+    respond {
+        You're on the right track, but on the wrong website. Go to the specific
+        URL instead of Googling.
+    }
+}
+power call 510-526-3337 {
+    synonym call 415-642-7170;
 }
 
 power observe garden {

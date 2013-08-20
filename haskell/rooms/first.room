@@ -16,6 +16,11 @@ enter {
     using the '_' command. Note that each time you ask for a hint, you will get
     a different and more revealing hint.
   }
+  
+  respond {
+    Note that there are no hidden commands - all commands that are available to
+    you will be explicitly introduced.
+  }
 }
 
 power observe {
@@ -71,12 +76,12 @@ power take broom {
 }
 
 power take picture {
-  if-item "Piece of a Picture (GLA)" {
+  if-item "1st Piece of a Picture (GLA)" {
     respond {
       You've already taken the picture. Do you just want to deprive the janitor of more happiness somehow?
     }
   } {
-    gain-item "Piece of a Picture (GLA)" {
+    gain-item "1st Piece of a Picture (GLA)" {
       What's a picture doing in a closet? Maybe the janitor really likes it, who knows.
 
       You decide to deprive the janitor of his enjoyment and take the picture. As
@@ -91,7 +96,7 @@ power take picture {
       As you peel the picture off the door, a key that was taped to the back of
       it drops to the ground.
       
-      You can look at the picture <a href="/static/pictures/1.jpg.part">here</a>.
+      You can look at the picture <a href="/static/pictures/encoded.part1">here</a>.
     }
   }
 }
@@ -123,7 +128,7 @@ power observe broom {
 }
 
 power observe door {
-  if-item "Piece of a Picture (GLA)" {
+  if-item "1st Piece of a Picture (GLA)" {
     respond {
       Now that you've gleefully ripped the picture off the wall, depriving the
       janitor of any happiness he might have ever had the chance to experience,
@@ -140,14 +145,14 @@ power observe door {
 }
 
 power observe picture {
-  if-item "Piece of a Picture (GLA)" {
+  if-item "1st Piece of a Picture (GLA)" {
     respond {
       You try to examine the picture in the dark, but can't make anything out. It
       doesn't look like anything intelligible - just a bunch of auto-generated
       noise. However, you do notice that the back of the picture has the letters
       "GLA" scrawled on it.
 
-      You can look at the piece of the picture <a href="/static/pictures/1.jpg.part">here</a>.
+      You can look at the piece of the picture <a href="/static/pictures/encoded.part1">here</a>.
     }
   } {
     respond {

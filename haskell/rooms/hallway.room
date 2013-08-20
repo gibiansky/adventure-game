@@ -65,6 +65,17 @@ power observe door {
   }
 }
 
+power observe keypad {
+    respond {
+        The keyboard is just a keyboard... built into the door.
+
+        It is waiting for you to enter the correct code.
+    }
+}
+power observe keyboard {
+    synonym observe keypad;
+}
+
 power type its-only-mooing-when-I-do-it {
   respond {
     Congratulations on the admission! I'm glad we finally agree.
@@ -113,5 +124,7 @@ power hint {
     Use 'f' and 't' to move to certain letters without doing searches.
   } {
     Use 'gq' or 'J' to join lines.
+  } {
+    Look in the vim-golf.vim source code for the answer if the limit is unreasonable.
   }
 }

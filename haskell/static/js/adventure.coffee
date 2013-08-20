@@ -25,6 +25,14 @@ class Sidebar extends Backbone.View
         itemDiv.html item
         @$el.append itemDiv
 
+      @addHintText()
+
+    addHintText: =>
+      hintText = _.template $('#hint-text-template').html(), {}
+      div = $(document.createElement 'div')
+      div.html hintText
+      @$el.append div
+
 
 class AdventureView extends Backbone.View
     views: []
@@ -69,11 +77,9 @@ class AdventureView extends Backbone.View
 
         # Make sure the bottom of the history is always visible.
         @historyView.scrollTop(@historyView.prop('scrollHeight'))
-        console.log 'scroll', @historyView.prop('scrollHeight')
 
         # Prevent images from screwing this up.
         @historyView.find("img").load =>
-          console.log 'scroll-post-load', @historyView.prop('scrollHeight')
           @historyView.scrollTop(@historyView.prop('scrollHeight'))
 
         this
@@ -100,6 +106,7 @@ class TextField extends Backbone.View
         @history = options.history
         @items = options.items
         @sidebar = options.sidebar
+        @historyPosition = @history.length - 1
 
         # Do initial rendering.
         @render()
@@ -109,8 +116,12 @@ class TextField extends Backbone.View
             command: text
             response: ""
         @history.add command
+        @historyPosition = @history.length
         command.save()
         @sidebar.update()
+
+    getHistoryCommands: () =>
+        return @history.collect ((model) -> model.get("command"))
 
     keyPress: (event) =>
         # Get the character to insert.
@@ -135,10 +146,16 @@ class TextField extends Backbone.View
         deleteKeyCode    = 46
         backspaceKeyCode = 8
         leftKeyCode      = 37
+        upKeyCode        = 38
         rightKeyCode     = 39
+        downKeyCode      = 40
 
         textLen = @enteredText.length
         [preCursor, postCursor] = @cursorSplitText()
+
+        # Fix history position.
+        if @historyPosition < 0 or @historyPosition > @history.length
+            @historyPosition = @history.length
 
         switch event.keyCode
             # Move the cursor left and right with arrow keys.
@@ -154,9 +171,26 @@ class TextField extends Backbone.View
                 if @cursorPosition != textLen
                     @enteredText = preCursor + postCursor.substring(1)
             when backspaceKeyCode
+                # Do not go back.
+                event.preventDefault()
+
+                # Delete a character.
                 if @cursorPosition != 0
                     @enteredText = preCursor.substring(0, preCursor.length - 1) + postCursor
                     @cursorPosition--
+
+            # Navigate up in history
+            when upKeyCode
+                if @historyPosition > 0
+                    @historyPosition--
+                    @enteredText = @getHistoryCommands()[@historyPosition]
+                    @cursorPosition = @enteredText.length
+
+            when downKeyCode
+                if @historyPosition < @getHistoryCommands().length - 1
+                    @historyPosition++
+                    @enteredText = @getHistoryCommands()[@historyPosition]
+                    @cursorPosition = @enteredText.length
 
         # Update rendered text.
         @render()

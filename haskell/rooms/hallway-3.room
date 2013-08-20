@@ -64,6 +64,17 @@ power observe door {
     The door has a small keyboard built into it.
   }
 }
+power observe keypad {
+    respond {
+        The keyboard is just a keyboard... built into the door.
+
+        It is waiting for you to enter the correct code.
+    }
+}
+power observe keyboard {
+    synonym observe keypad;
+}
+
 
 power type quack-quack-I-vant-to-suck-your-blood-quack {
   respond {
@@ -99,9 +110,14 @@ power hint {
     Put a "/g" at the end of a search and replace to apply it to all of the
     occurrences in a line.
   } {
+    Sometimes it's faster to replace all occurrences and then fix manually the
+    ones you don't want to replace.
+  } {
     Use 'f' to navigate to a character in a line, i.e. 'fg' to go to the first
     'g', '2fg' to go the 2nd g, etc.
   } {
     Use 'r' to replace one character without leaving normal mode.
+  } {
+    Look in the vim-golf.vim source code for the answer if the limit is unreasonable.
   }
 }
