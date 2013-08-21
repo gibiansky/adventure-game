@@ -87,6 +87,11 @@ power take napkin {
     You really don't want to pick up that blood-stained napkin.
   }
 }
+power open napkin {
+    respond {
+        The napkin isn't closed... you cannot open this napkin.
+    }
+}
 
 power take note {
   respond {
@@ -97,7 +102,9 @@ power take note {
 
 power take postcards {
   respond {
-    
+    The postcards are glued to the table. You can't take them.
+
+    Who the hell thought that was a good idea?
   }
 }
 
@@ -288,6 +295,14 @@ power call 510-526-3337 {
     synonym call 415-642-7170;
 }
 
+power call 919-442-8005 {
+    respond {
+        We're on the West coast, not the East coast.
+
+        This cell phone accepts letters sometimes, too.
+    }
+}
+
 power observe garden {
   respond {
     The garden beyond the gate is incredibly overgrown. You can't see
@@ -337,6 +352,26 @@ power observe picture {
 
       You can look at the piece <a href="/static/pictures/1.jpg.part">here</a>.
   }
+}
+
+power take table {
+    respond {
+        You try to pick up the table, but it bites you.
+    }
+}
+power open table {
+    respond {
+        The table isn't closed, and has no drawers. You can't open this table.
+    }
+}
+
+power observe goats {
+    respond {
+        You can't take the goats.
+    }
+}
+power observe goat {
+    synonym observe goats;
 }
 
 power hint {

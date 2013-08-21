@@ -25,8 +25,7 @@ power observe {
 
 power observe pond {
     respond {
-        As you near the pond, you notice large letters inscribed on the stone
-        around it. They kindly inform you:
+        As you near the pond, you notice large letters inscribed on the stone around it. They kindly inform you:
 
         | DO NOT FEED THE KOI.
         | DO NOT LOOK AT THE KOI.
@@ -35,23 +34,31 @@ power observe pond {
 
         A rather long inscription to the left warns you:
 
-        | BEWARE OF KOI: The Koi is a highly intelligent and vicious creature.
-        | You are no match for the Koi. Tread carefully. Communicating or
-        | interacting with the Koi may lead to unpleasant side effects, such as a
-        | headache, a stomach ache, dry eyes, internal bleeding, internal
-        | combustion, evisceration, disembowelment, dismemberment, death, or a
-        | general unsatisfaction with your life and a feeling that everything
-        | you're doing is utterly pointless nonsense in a meaningless and
-        | uncaring world.
+        | BEWARE OF KOI: The Koi is a highly intelligent and vicious creature.  You are no match for
+        | the Koi. Tread carefully. Communicating or interacting with the Koi may lead to unpleasant
+        | side effects, such as a headache, a stomach ache, dry eyes, internal bleeding, internal
+        | combustion, evisceration, disembowelment, dismemberment, death, or a general unsatisfaction
+        | with your life and a feeling that everything you're doing is utterly pointless nonsense in a
+        | meaningless and uncaring world.
 
-        You notice that the pond does, indeed, contain a rather large Koi, as
-        well as plenty of rather blue seaweed. Is it blue? You're not sure.
-        Most people would call that color green, but you're not quite sure. You
-        think it's blue.
+        You notice that the pond does, indeed, contain a rather large Koi, as well as plenty of
+        rather blue seaweed. Is it blue? You're not sure.  Most people would call that color green,
+        but you're not quite sure. You think it's blue.
 
         The Koi is starting at you, eyes and mouth wide open, fangs showing.
-
         Somehow, it smiles... and waits.
+    }
+}
+power take pond {
+    respond {
+        You try to take the pond, but for some reason the water just slips
+        through your fingers. You theorize that the pond is mostly liquid, and
+        therefore you are incapable of taking it.
+    }
+}
+power open pond {
+    respond {
+        What the hell does that even mean? You can't open the pond.
     }
 }
 
@@ -178,6 +185,15 @@ power observe rose bushes {
 power observe roses {
     synonym observe rose bush;
 }
+power observe bushes {
+    synonym observe rose bush;
+}
+power observe bush {
+    synonym observe rose bush;
+}
+power observe shrub {
+    synonym observe rose bush;
+}
 
 power take bushes {
     respond {
@@ -192,6 +208,9 @@ power take rose bushes {
     synonym take bushes;
 }
 power take rose bush {
+    synonym take bushes;
+}
+power take shrub {
     synonym take bushes;
 }
 
@@ -471,6 +490,35 @@ power take goat {
         As you try to pick up a goat, the goat decides you look very plant-like
         and tries to eat you. You drop the goat in surprise, though honestly,
         you really shouldn't be surprised anymore.
+    }
+}
+power take goats {
+    synonym take goat;
+}
+
+power observe goats {
+    respond {
+        The goats are munching cheerfully on everything and everyone, including
+        the rose bushes, the pond, the altar, and, of course, you. They seem
+        quite self-satisfied and very happy about it, too.
+    }
+}
+power observe goat {
+    synonym observe goats;
+}
+
+power give hatchet door {
+    if-item "Hatchet" {
+        respond {
+            You hand the hatchet to the door, but, given that the door is an
+            inanimate object, the door does nothing, as it is wont to do.
+
+            Try opening the door.
+        }
+    } {
+        respond {
+            You don't have a hatchet.
+        }
     }
 }
 

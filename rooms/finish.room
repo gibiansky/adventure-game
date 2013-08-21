@@ -60,6 +60,8 @@ power take picture {
         out how they fit together, and what the text on the back is for.
 
         The painting may give you a clue.
+
+        You can look at all the pieces of the picture <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a> and <a href="/static/pictures/encoded.part3">here</a>.
     }
   } {
     gain-item "3rd Piece of a Picture (ILING)" {
@@ -80,6 +82,8 @@ power take picture {
       Figuring out how to deal with these picture pieces may be hard. The hints
       are designed to be used! Don't forget that you can type 'hint' if
       necessary.
+
+      You can look at all the pieces of the picture <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a> and <a href="/static/pictures/encoded.part3">here</a>.
     }
   }
 }
@@ -93,7 +97,8 @@ power observe painting {
 
 power hint {
     choose-by-count hint {
-        You should take the picture.
+        You should take the picture. Make sure you have all three pieces.
+        'observe picture' to get links to all of them.
     } {
         Make sure you've looked at the painting in detail. It tells you what to
         do with the picture fragments.
@@ -102,29 +107,33 @@ power hint {
         you need to go through to decrypt the pictures.
     } {
         The painting is describing a series of Unix commands. However, some of
-        the commands are things  you might need to implement.
+        the commands are things you might need to implement. Be prepared to
+        break out your text editor and Python or Haskell interpreters - you will
+        need to write some code.
     } {
         The pipe is a Unix pipe. The top part gets piped into the bottom part.
     } {
         The top part tells you how to combine all the pictures. Combine them in order, using a cat.
     } {
         cat 1.png.part 2.png.part 3.png.part > encrypted.png;
-        decryption-command encrypted.png;
+        your-implemented-decryption-command encrypted.png;
     } {
-        The circuit element tells you how to decrypt the data.
+        The circuit element is a bitwise gate and tells you how to decrypt the data.
     } {
         Use 'exclusive or' on the data with the correct decryption key. Then view as an image!
     } {
-        The image format is a JPEG.
+        Wikipedia has an article on 'xor' ciphers. Also, the image format is a PNG.
     } {
         Make sure to look at the writing on the pictures, which you can see
         next to the item names on the top left.
     } {
         The key is given to you by the writing on the pictures, repeated many times.
     } {
-        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's cycle "GLASSCEILING".
+        The key is "GLASSCEILING" repeated indefinitely. In Haskell, it's cycle
+        "GLASSCEILING". In Python, you have to just index into the string
+        correctly, using the modulus operator (%) to get the right index.
     } {
-        You may find the Python functions 'ord' and 'chr' useful, because XOR doesn't work on strings.
+        You may find the Python functions 'ord' and 'chr' useful, because XOR (^) doesn't work on strings.
     } {
         To open and use files in Python, use
         
@@ -137,7 +146,10 @@ power hint {
         ... writer.write(data)
     
     } {
-        In Python, the ^ operator lets you take bitwise xor of two integers.
+        Apply bitwise xor to each character, paired with the correct character
+        of the key. Remember that the image is binary data - line breaks and
+        such are unimportant and bad, so don't use 'print' or 'readline()' or
+        'writeline()'.
     } {
         You can use the Haskell decoder available <a href="/static/code/Xor.hs">here</a>.
         Alternatively, you can use the Python decoder available <a href="/static/code/decode.py">here</a>.

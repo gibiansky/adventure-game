@@ -1,7 +1,7 @@
 enter {
   respond {
     Once more, you find yourself in narrow and dark corridor, with a door at
-    the end of it.
+    the end of it. The door seems to have some interesting writing on it.
 
     As you pass through the doorway, you hear a loud click as the door shuts
     behind you - and locks.
@@ -15,6 +15,7 @@ power observe {
   respond {
     Once more, you find yourself in narrow and dark corridor, with a door at
     the end of it. The door locked behind you, so the only way to go is forward.
+    The door seems to have some interesting writing on it.
 
     It looks like the first keycode challenge wasn't too difficult. The hallway
     is lined with the skeletons of Emacs users and corporate Java programmers
@@ -44,13 +45,21 @@ power observe vim {
   respond {
     You're looking at someone's ~/.vimrc file. It contains:
 
-    " After insallation, you can...
-    " Run :HoleTwo to begin.
+    " You should have everything installed at this point.
+    " Run :HoleTwo to begin the challenge.
     " Run :Done when done.
-    :Bundle 'gibiansky/vim-golf'
-    :BundleInstall
-    
   }
+}
+power observe Vim {
+    synonym observe vim;
+}
+
+power observe emacs {
+    respond {
+        You briefly consider firing up emacs on the terminal, but that just
+        seems disrespectful to this sanctuary of modal editing. You decide
+        against it.
+    }
 }
 
 power observe door {

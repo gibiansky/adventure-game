@@ -3,6 +3,7 @@ enter {
     You find yourself in a very narrow and dimly lit hallway. Behind you is
     the koi- and goat-infested garden, and in front of you is a single door.
     To the left of the door is a small stand with a computer terminal on it.
+    The door seems to have some interesting writing on it.
 
     Remember, if you get stuck, use 'hint' to get some quick hints. The more
     you use it, however, the more revealing the hints will become.
@@ -33,22 +34,49 @@ power observe computer {
 power observe computer terminal {
   synonym observe terminal;
 }
+power observe stand {
+    respond {
+        The stand on which the computer is standing is thoroughly uninteresting.
+        You probably want to look at the terminal itself, though, as well as the
+        door.
+    }
+}
 
 power observe vim {
   respond {
     You're looking at someone's ~/.vimrc file. It contains:
 
+    " Install vundle from github.com/gmarik/vundle first.
+    " Make sure you have all relevant lines that are needed.
+
+    " Put this in your ~/.vimrc
+    " After you have saved that,
+    " use the command 'vim +BundleInstall +qall' in terminal to install.
+    Bundle 'gibiansky/vim-golf'
+
     " After insallation, you can...
-    " Run :HoleOne to begin.
+    " ...play Vim Golf! Minimize your keystrokes to pass.
+    " Run :HoleOne to begin the challenge.
     " Run :Done when done.
-    :Bundle 'gibiansky/vim-golf'
-    :BundleInstall
 
     Administrative Note: You will need to actually use Vim for this. MacVim
-    works as well.  When you retry, just quit all windows - ignore any warnings
-    or dialog boxes about unsaved files. The ":qa!" command may be your friend.
+    works as well. Make sure to install Vundle properly. When you retry, just
+    quit all windows - ignore any warnings or dialog boxes about unsaved files.
+    The ":qa!" command may be your friend.
   }
 }
+power observe Vim {
+    synonym observe vim;
+}
+
+power observe emacs {
+    respond {
+        You briefly consider firing up emacs on the terminal, but that just
+        seems disrespectful to this sanctuary of modal editing. You decide
+        against it.
+    }
+}
+
 
 power observe door {
   respond {
