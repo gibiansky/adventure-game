@@ -1,3 +1,106 @@
+Unimplemented:
+
+Vim Challenge:
+=============
+    - In a corridor after the Koi room.
+    - Three doors.
+    - First door is covered by a picture! ("SSCE")
+    - Each door has a computerized keypad.
+    - Gain power 'unlock'
+        - unlock spawns a vim event.
+        - gives you some input text
+        - tells you what the output text needs to be
+        - lets you enter a register string
+        - sends to vim server
+        - waits for response
+        - if success, tells you the keycode
+        - then type 'unlock <keycode>'
+        - and door opens
+
+Final Challenge:
+    - After the last door, you come to a dead end.
+    - On the wall is another picture ("ILING")
+    - When you take down the picture, there's a sign that describes how to concatenate the pictures and decode them. 
+      
+
+Random Crap Ideas:
+===============================================
+- Random stats about goats eating 8 pounds per day, being in the military, etc.
+  Postcards?
+
+- Congrats. You got the answer? Would you like a medal? You would? Well too
+  bad. You're not getting one. 
+
+- Find a large mug or stick or something and gain the power to "bash". If you
+  try to "bash", the command raises an error about zsh being better. It kindly
+  redirects you to zsh and then the prompt becomes random colors.
+
+- It's only mooing when you do it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------
+
+Final Challenge:
+================
+    - Task: guess the phrase "sky cube"
+
+    The corridor leads to yet another room. This room is almost completely barren. 
+
+    The two things in it are a large sign and a very futuristic-looking computer.
+
+    on "observe sign":
+        The sign says "Welcome to the Quantum Teleportation Device."
+
+        There's also a subscript, which reads, "Be aware that this device does not, in any way, utilize quantum physics for the purpose of teleportation.
+        It is quantum solely because the teleportation is quantized - we promise you that you will not be fractionally telported.
+        In the off chance that this is what happens, we promise to reimburse you for all damages, provided that you are still around to claim them.
+
+        The're also a really small warning which in bright red reads, "Warning: This device is magic."
+
+    on "observe computer":
+        The computer is attached to a keyboard. On screen you see a game of hangman, with eight spaces in the word or phrase.
+
+        It's labeled, "Where would you like to teleport?"
+
+        > You gained the power to "type".
+
+    on "type sky cube":
+        The computer beeps loudly. Beep beep. Bloop bloop.
+
+        You are being teleported to the Sky Cube.
+
+        (Go there. You have completed this game. Congratulations.)
+
+    on "type <not 'sky cube'>":
+        The computer beeps loudly. Beep beep. Bloop bloop. 
+        
+        The world begins to fade around you, slowly turning to black, and -- BZZZZT.
+
+        BEEEEEP. 
+
+        You are once more back the teleporter room. Looks like that wasn't a valid location.
+
+        The hangman looks slightly more unhappy than he was when you came in.
+        But then again, he's condemned to die anyways, so what's there to be
+        happy about? His life must really suck.
+
+        Luckily, you're doesn't. Unlike him, you get to try again.
+
+
 There are several challenges. Each challenge yields a prize which is suggestive
 towards "sky cube".  The sky cube is where the physical part of the present is.
 
@@ -168,62 +271,3 @@ Vim Challenge:
         hallucinate: You can hallucinate some objects into being, especially if you've seen them drawn in ASCII before.
         "hallucinate cube" -- gives you a cube in inventory
 
-Final Challenge:
-================
-    - Task: guess the phrase "sky cube"
-
-    The corridor leads to yet another room. This room is almost completely barren. 
-
-    The two things in it are a large sign and a very futuristic-looking computer.
-
-    on "observe sign":
-        The sign says "Welcome to the Quantum Teleportation Device."
-
-        There's also a subscript, which reads, "Be aware that this device does not, in any way, utilize quantum physics for the purpose of teleportation.
-        It is quantum solely because the teleportation is quantized - we promise you that you will not be fractionally telported.
-        In the off chance that this is what happens, we promise to reimburse you for all damages, provided that you are still around to claim them.
-
-        The're also a really small warning which in bright red reads, "Warning: This device is magic."
-
-    on "observe computer":
-        The computer is attached to a keyboard. On screen you see a game of hangman, with eight spaces in the word or phrase.
-
-        It's labeled, "Where would you like to teleport?"
-
-        > You gained the power to "type".
-
-    on "type sky cube":
-        The computer beeps loudly. Beep beep. Bloop bloop.
-
-        You are being teleported to the Sky Cube.
-
-        (Go there. You have completed this game. Congratulations.)
-
-    on "type <not 'sky cube'>":
-        The computer beeps loudly. Beep beep. Bloop bloop. 
-        
-        The world begins to fade around you, slowly turning to black, and -- BZZZZT.
-
-        BEEEEEP. 
-
-        You are once more back the teleporter room. Looks like that wasn't a valid location.
-
-        The hangman looks slightly more unhappy than he was when you came in.
-        But then again, he's condemned to die anyways, so what's there to be
-        happy about? His life must really suck.
-
-        Luckily, you're doesn't. Unlike him, you get to try again.
-
-Random Crap Ideas:
-===============================================
-- Random stats about goats eating 8 pounds per day, being in the military, etc.
-  Postcards?
-
-- Congrats. You got the answer? Would you like a medal? You would? Well too
-  bad. You're not getting one. 
-
-- Find a large mug or stick or something and gain the power to "bash". If you
-  try to "bash", the command raises an error about zsh being better. It kindly
-  redirects you to zsh and then the prompt becomes random colors.
-
-- It's only mooing when you do it.
