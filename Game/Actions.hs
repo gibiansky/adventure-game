@@ -6,11 +6,10 @@ module Game.Actions (
   initGame
   ) where
 
-import Control.Applicative ((<$>), (<*>))
-import Control.Monad (foldM, mzero)
+import Control.Monad (foldM)
 import Control.Monad.State (State, modify, gets)
 import Control.Monad.Writer (runWriter, Writer, tell)
-import Data.Aeson
+import Data.Aeson (encode, decode)
 import Data.List (find)
 import Data.Maybe (fromJust)
 import Data.String.Utils (replace)
@@ -37,17 +36,8 @@ getItems _ = do
   myItems <- gets items
   return $ encode myItems
 
-
 noSuchCommand :: CommandResponse
 noSuchCommand = Just "error: no matching command found. enqueue headpat."
-
-instance ToJSON Command where
-  toJSON (Command i cmd Nothing) = toJSON $ Command i cmd $ Just "No response."
-  toJSON (Command i cmd (Just response)) = object ["id" .= i, "command" .= cmd, "response" .= response]
-
-instance FromJSON Command where
-  parseJSON (Object v) = Command <$> return (-1) <*> v .: "command" <*> return Nothing
-  parseJSON _ = mzero
 
 initGame :: Map.Map RoomName Room -> Game
 initGame roomlist =

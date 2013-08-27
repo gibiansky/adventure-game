@@ -1,9 +1,14 @@
+{-# LANGUAGE OverloadedStrings #-}
 -- We need a separate Types module because circular imports are forbidden
 -- in Haskell. Since pretty much all our modules need these types to be
 -- available, we have no choice but to separate them out into a small module
 -- separate from all the rest of the modules.
 
 module Game.Types where
+
+import Control.Applicative ((<$>), (<*>))
+import Control.Monad (mzero)
+import Data.Aeson
 
 import qualified Data.Map as Map
 
@@ -31,6 +36,19 @@ data Command = Command {
 -- | The response to a command is Just the output to show to the user
 -- | or Nothing if the command has not yet been evaluated.
 type CommandResponse = Maybe String
+
+-- Allow reading and writing commands as JSON.
+-- Implementing these two typeclasses allows us to use the 'encode' and
+-- 'decode' functions to convert between Commands and ByteStrings.
+instance ToJSON Command where
+  toJSON (Command i cmd Nothing) = toJSON $ Command i cmd $ Just "No response."
+  toJSON (Command i cmd (Just response)) = object ["id" .= i, "command" .= cmd, "response" .= response]
+instance FromJSON Command where
+  parseJSON (Object v) = Command <$> return (-1) <*> v .: "command" <*> return Nothing
+
+  -- Commands must be objects, as they are toplevel entities.
+  -- (That is, as opposed to "strings" or ints like 3.)
+  parseJSON _ = mzero
 
 -- A room. Rooms represent distinct areas of the game, where 
 -- powers take on unique meanings. The meaning of a power depends on

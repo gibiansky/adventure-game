@@ -18,34 +18,53 @@ parseRoom contents name =
        Left err -> error $ show err
        Right parsed -> (replace ".room" "" name, parsed)
 
+-- | Parser for an entire room.
 room :: Parser Room
 room = do
+  -- Parse the enter section, which is required.
   enters <- namedActions "enter"
   whitespace
+
+  -- Parse the optional exit section.
   maybeExit <- optionMaybe $ try $ namedActions "exit"
   whitespace
+
+  -- Parse all the power declarations.
   pows <- many $ try powerDeclaration
+
+  -- After power declarations, we're done.
   whitespace
   eof
+
   let exitActs = fromMaybe [] maybeExit
   return Room {enterActions = enters, exitActions = exitActs, powerDefinitions = pows}
 
+-- | Parse another parser surrounded by braces and whitespace.
 braced :: Parser a -> Parser a
 braced parser = do
+  -- Parse opening brace and whitespace.
   whitespace
   char '{'
   whitespace
+
+  -- Parse the actual values.
   val <- parser
+
+  -- Parse closing brace and whitespace.
   whitespace
   char '}'
   whitespace
+  
   return val
 
+-- | Parse a group of actions with a name, such as the enter or exit actions.
+-- | These are just the name followed by a braced set of actions.
 namedActions :: String -> Parser [Action]
 namedActions name = do
   string name
   braced $ many $ try action
 
+-- | Parse a power declaration.
 powerDeclaration :: Parser Power
 powerDeclaration = do
   whitespace
@@ -53,6 +72,7 @@ powerDeclaration = do
   actions <- braced $ many1 $ try action
   return $ Power name args actions
 
+-- | Parse one action.
 action :: Parser Action
 action = whitespace >> choice (map try actionParsers)
   where
@@ -64,7 +84,7 @@ action = whitespace >> choice (map try actionParsers)
 synonymParser :: Parser Action
 synonymParser = do
   parts <- actionHeader "synonym"
-  actionString
+  void actionString
   return $ PowerTrigger $ unwords parts
 
 gainParser :: Parser Action
