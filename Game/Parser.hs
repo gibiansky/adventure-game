@@ -1,6 +1,6 @@
 -- | Parse room files, which are written in a custom language for adventure gaming.
 module Game.Parser (
-  parseRoom
+  parseRoom -- ^ The only exposed function is one which takes file contents and returns a parsed room.
   ) where
 
 import Control.Monad (void)
@@ -68,67 +68,107 @@ namedActions name = do
 powerDeclaration :: Parser Power
 powerDeclaration = do
   whitespace
+  -- Start with the power keyword and the arguments.
   (name, args) <- powerSpec
+
+  -- Then parse the actions the power triggers.
   actions <- braced $ many1 $ try action
   return $ Power name args actions
 
 -- | Parse one action.
 action :: Parser Action
-action = whitespace >> choice (map try actionParsers)
+action = whitespace >> choice (map try actionParsers) -- Choose one of the possible actions.
   where
     -- All possible actions.
     actionParsers = [respondParser, gainParser, loseParser, 
                      moveToParser, chooseByCountParser, gainItemParser,
                      loseItemParser, ifPossessingParser, synonymParser]
 
+-- | Parse a synonym action.
+-- | These look like this:
+-- |   synonym powername arg1 arg2 ... argn;
 synonymParser :: Parser Action
 synonymParser = do
   parts <- actionHeader "synonym"
   void actionString
   return $ PowerTrigger $ unwords parts
 
+-- | Parse a gain power action.
+-- | These look like this:
+-- |   gain powername { Out string }
 gainParser :: Parser Action
 gainParser = do
   name : [] <- actionHeader "gain"
   val <- actionString
   return $ GainPower name val
 
+-- | Parse a lose power action.
+-- | These look like this:
+-- |   lose powername { Out string }
 loseParser :: Parser Action
 loseParser = do
   name : [] <- actionHeader "lose"
   val <- actionString
   return $ LosePower name val
 
+-- | Parse a room switching action.
+-- | These look like this:
+-- |   move-to room-name;
 moveToParser :: Parser Action
 moveToParser = do
   name : [] <- actionHeader "move-to"
   void actionString
   return $ MoveToRoom name
 
+-- | Parse a string output action which chooses among choices.
+-- | These look like this:
+-- |   choose-by-count powername {
+-- |     First option
+-- |   } {
+-- |     Second option
+-- |   } {
+-- |     ...
+-- |   }
 chooseByCountParser :: Parser Action
 chooseByCountParser = do
   name : [] <- actionHeader "choose-by-count"
   responseChoices <- many1 actionString
   return $ ChooseByCount name responseChoices
 
+-- | Parse a string output action.
+-- | These look like this:
+-- |   respond { Out string }
 respondParser :: Parser Action
 respondParser = do
   actionHeader "respond"
   val <- actionString
   return $ Print val
 
+-- | Parse a gain item action.
+-- | These look like this:
+-- |   gain-item "Item Name";
 gainItemParser :: Parser Action
 gainItemParser = do
   name : [] <- actionHeader "gain-item"
   val <- actionString
   return $ GainItem name val
 
+-- | Parse a lose item action.
+-- | These look like this:
+-- |   lose-item "Item Name";
 loseItemParser :: Parser Action
 loseItemParser = do
   name : [] <- actionHeader "lose-item"
   val <- actionString
   return $ LoseItem name val
 
+-- | Parse a conditional action.
+-- | These look like this:
+-- |   if-item "Item Name" {
+-- |     then-actions
+-- |   } {
+-- |     else-actions
+-- |   }
 ifPossessingParser :: Parser Action
 ifPossessingParser = do
   name : [] <- actionHeader "if-item"
