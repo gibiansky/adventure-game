@@ -1,21 +1,24 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -fno-warn-orphans #-}
-module Game.Actions where
+module Game.Actions (
+  runCommand,
+  getHistory,
+  getItems,
+  initGame
+  ) where
+
+import Control.Applicative ((<$>), (<*>))
+import Control.Monad (foldM, mzero)
+import Control.Monad.State (State, modify, gets)
+import Control.Monad.Writer (runWriter, Writer, tell)
+import Data.Aeson
+import Data.List (find)
+import Data.Maybe (fromJust)
+import Data.String.Utils (replace)
+
+import qualified Data.Map as Map
+import qualified Data.ByteString.Lazy as Lazy
 
 import Game.Types
-
-import Control.Monad.State
-import Control.Monad.Writer
-import qualified Data.ByteString.Lazy as Lazy
-import Control.Applicative
-import Data.Maybe
-import Data.Aeson
-import Data.List
-
-import Data.String.Utils
-import qualified Data.Map as Map
-
-import Debug.Trace
 
 runCommand :: Lazy.ByteString -> State Game Lazy.ByteString
 runCommand commandStr = 
@@ -73,23 +76,16 @@ run (Command _ cmdstr _) game =
        Nothing -> 
          let errcmd = Command (lastId game) cmdstr noSuchCommand in
            game {history = history game ++ [errcmd], lastId = 1 + lastId game}
-       Just (Power powname _ actions) -> 
-         let (game', cmdOutput) = runWriter $ foldM runAction game actions
+       Just pow -> 
+         let (game', cmdOutput) = runWriter $ foldM runAction game $ powerActions pow
              newCommand = Command (lastId game) cmdstr $ Just cmdOutput
-             newCounts = setOrModify 1 (+1) powname $ commandCounts game' 
+             newCounts = setOrModify 1 (+1) (powerName pow) $ commandCounts game' 
              game'' = game' {history = history game ++ [newCommand], lastId = 1 + lastId game, commandCounts = newCounts} in
           game''
 
 powerMatches :: PowerName -> Power -> Bool
-powerMatches str (Power name args _) =
+powerMatches str Power { powerName = name, powerArgs = args } =
   words str == name : args
-
-getPowerWithName :: String -> Game -> Power
-getPowerWithName name game = fromJust $ find ((name ==) . powerName) roomPowers
-  where
-    Room _ _ roomPowers = currentRoom game
-    powerName (Power powername _ _) = powername
-
 
 runAction :: Game -> Action -> Writer String Game
 runAction game command = 
@@ -108,12 +104,12 @@ runAction game command =
          tell $ cycle strlist !! ct
          return game
        MoveToRoom name ->
-         let actions = trace (show $ enterActions $ currentRoom game) $ exitActions $ currentRoom game in
+         let actions = exitActions $ currentRoom game in
            case Map.lookup name $ rooms game of
              Nothing -> error $ concat ["No room named ", name, " in room list!"]
-             Just room@(Room enterActs _ _) -> do
+             Just room -> do
                let game' = game { currentRoom = room, commandCounts = Map.empty }
-               foldM runAction game' (actions ++ enterActs)
+               foldM runAction game' (actions ++ enterActions room)
        GainItem itemName dispstring -> do
          tell dispstring
          return game {items = itemName : items game}
@@ -123,7 +119,5 @@ runAction game command =
        IfPosessingItem itemName thenActs elseActs ->
          foldM runAction game (if itemName `elem` items game then thenActs else elseActs)
        PowerTrigger cmdstr ->
-         let Power _ _ actions = fromJust $ find (powerMatches cmdstr) (powerDefinitions $ currentRoom game) in
-           foldM runAction game actions
-
-    
+         let pow = fromJust $ find (powerMatches cmdstr) (powerDefinitions $ currentRoom game) in
+           foldM runAction game (powerActions pow)
