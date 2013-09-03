@@ -193,3 +193,9 @@ power hint {
     open door
   }
 }
+
+power take door {
+    respond {
+        The door is firmly attached to its hinges. You can't take it.
+    }
+}

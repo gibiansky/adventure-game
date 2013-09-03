@@ -157,3 +157,18 @@ power hint {
         There are no more hints. The decrypted picture is available <a href="/static/pictures/decrypted.png">here</a>.
     }
 }
+
+power observe {
+    respond {
+        You really expected something more grandiose. The room is completely
+        unadorned. Above you there's a light, and almost nothing else.
+
+        The only interesting thing in the room is a piece of a picture, taped
+        to the far wall. 
+
+        This is the last challenge of the adventure game. You may find it quite
+        difficult and time consuming - remember that you have the 'hint'
+        command available to you! Repeating it many times will give you
+        incrementally more useful hints.
+    }
+}

@@ -394,3 +394,9 @@ power hint {
     call 858-751-GOAT
   }
 }
+
+power take medal {
+    respond {
+        There is no medal to take.
+    }
+}

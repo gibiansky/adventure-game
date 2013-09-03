@@ -1,52 +1,55 @@
 enter {
-  respond {
-    Once more, you find yourself in narrow and dark corridor, with a door at
-    the end of it. The door seems to have some interesting writing on it.
+    respond {
+        Once more, you find yourself in narrow and dark corridor, with a door at
+            the end of it. The door seems to have some interesting writing on it.
 
-    As you pass through the doorway, you hear a loud click as the door shuts
-    behind you - and locks.
+            As you pass through the doorway, you hear a loud click as the door shuts
+            behind you - and locks.
 
-    Once again, there is a computer terminal to the left of the door, and a
-    keypad attached to the door.
-  }
+            Once again, there is a computer terminal to the left of the door, and a
+            keypad attached to the door.
+    }
 }
 
 power observe {
-  respond {
-    Once more, you find yourself in narrow and dark corridor, with a door at
-    the end of it. The door locked behind you, so the only way to go is forward.
-    The door seems to have some interesting writing on it.
+    respond {
+        Once more, you find yourself in narrow and dark corridor, with a door at
+            the end of it. The door locked behind you, so the only way to go is forward.
+            The door seems to have some interesting writing on it.
 
-    You've managed to get past the first two locks... and here is yet another.
-  }
+            You've managed to get past the first two locks... and here is yet another.
+    }
+}
+power observe hallway {
+    synonym observe;
 }
 
 power observe terminal {
-  respond {
-    The terminal is an old, worn down thing. It is labeled "Challenge 3".
+    respond {
+        The terminal is an old, worn down thing. It is labeled "Challenge 3".
 
-    The only ones to get this far were Vim users at heart - the ones who could
-    not get farther spent their dying breaths writing ":wq! :wq! :qall! :help!"
-    on the sides of the computer.
+            The only ones to get this far were Vim users at heart - the ones who could
+            not get farther spent their dying breaths writing ":wq! :wq! :qall! :help!"
+            on the sides of the computer.
 
-    As before, you notice that Vim is running on the terminal.
-  }
+            As before, you notice that Vim is running on the terminal.
+    }
 }
 power observe computer {
-  synonym observe terminal;
+    synonym observe terminal;
 }
 power observe computer terminal {
-  synonym observe terminal;
+    synonym observe terminal;
 }
 
 power observe vim {
-  respond {
-    You're looking at someone's ~/.vimrc file. It contains:
+    respond {
+        You're looking at someone's ~/.vimrc file. It contains:
 
-    " You should have everything installed at this point.
-    " Run :HoleThree to begin the challenge.
-    " Run :Done when done.
-  }
+            " You should have everything installed at this point.
+            " Run :HoleThree to begin the challenge.
+            " Run :Done when done.
+    }
 }
 power observe Vim {
     synonym observe vim;
@@ -55,29 +58,29 @@ power observe Vim {
 power observe emacs {
     respond {
         You briefly consider firing up emacs on the terminal, but that just
-        seems disrespectful to this sanctuary of modal editing. You decide
-        against it.
+            seems disrespectful to this sanctuary of modal editing. You decide
+            against it.
     }
 }
 
 power observe door {
-  respond {
-    The door is a relatively standard door...
+    respond {
+        The door is a relatively standard door...
 
-    The only unusual thing is the large red letters written on it:
+            The only unusual thing is the large red letters written on it:
 
-    | THE FINAL TEST.
-    | THE ANSWER LIES WITHIN.
-    | DO NOT :qall! NOW.
+            | THE FINAL TEST.
+            | THE ANSWER LIES WITHIN.
+            | DO NOT :qall! NOW.
 
-    The door has a small keyboard built into it.
-  }
+            The door has a small keyboard built into it.
+    }
 }
 power observe keypad {
     respond {
         The keyboard is just a keyboard... built into the door.
 
-        It is waiting for you to enter the correct code.
+            It is waiting for you to enter the correct code.
     }
 }
 power observe keyboard {
@@ -86,47 +89,56 @@ power observe keyboard {
 
 
 power type quack-quack-I-vant-to-suck-your-blood-quack {
-  respond {
-    You suddenly spot... Vampire ducklings? Of course, they can only be
-    summoned by the more vampiric of vampires... So what does that say about
-    you?
+    respond {
+        You suddenly spot... Vampire ducklings? Of course, they can only be
+            summoned by the more vampiric of vampires... So what does that say about
+            you?
 
-    The door lock clicks open; you should have no trouble opening it.
-  }
+            The door lock clicks open; you should have no trouble opening it.
+    }
 
-  gain-item "Key";
+    gain-item "Key";
+}
+power type quack-quack-i-vant-to-suck-your-blood-quack {
+    synonym type quack-quack-i-vant-to-suck-your-blood-quack;
 }
 
-power open door {
-  if-item "Key" {
-    respond {
-      You unlock the door, and proceed onwards.
-    }
-    lose-item "Key";
 
-    move-to finish;
-  } {
-    respond {
-      The door is locked.
+power open door {
+    if-item "Key" {
+        respond {
+            You unlock the door, and proceed onwards.
+        }
+        lose-item "Key";
+
+        move-to finish;
+    } {
+        respond {
+            The door is locked.
+        }
     }
-  }
+}
+power take door {
+    respond {
+        You can't take the door. It's a door.
+    }
 }
 
 power hint {
-  choose-by-count hint {
-    Use search and replace with :%s/search-pattern/replace-pattern
-  } {
-    Put a "/g" at the end of a search and replace to apply it to all of the
-    occurrences in a line.
-  } {
-    Sometimes it's faster to replace all occurrences and then fix manually the
-    ones you don't want to replace.
-  } {
-    Use 'f' to navigate to a character in a line, i.e. 'fg' to go to the first
-    'g', '2fg' to go the 2nd g, etc.
-  } {
-    Use 'r' to replace one character without leaving normal mode.
-  } {
-    Look in the vim-golf.vim source code for the answer if the limit is unreasonable.
-  }
+    choose-by-count hint {
+        Use search and replace with :%s/search-pattern/replace-pattern
+    } {
+        Put a "/g" at the end of a search and replace to apply it to all of the
+            occurrences in a line.
+    } {
+        Sometimes it's faster to replace all occurrences and then fix manually the
+            ones you don't want to replace.
+    } {
+        Use 'f' to navigate to a character in a line, i.e. 'fg' to go to the first
+            'g', '2fg' to go the 2nd g, etc.
+    } {
+        Use 'r' to replace one character without leaving normal mode.
+    } {
+        Look in the vim-golf.vim source code for the answer if the limit is unreasonable.
+    }
 }

@@ -17,6 +17,9 @@ power observe {
     To the left of the door is a small stand with a computer terminal on it.
   }
 }
+power observe hallway {
+    synonym observe;
+}
 
 power observe terminal {
   respond {
@@ -116,6 +119,9 @@ power type its-only-mooing-when-I-do-it {
 
   gain-item "Key";
 }
+power type its-only-mooing-when-i-do-it {
+    synonym type its-only-mooing-when-I-do-it;
+}
 
 power open door {
   if-item "Key" {
@@ -130,6 +136,11 @@ power open door {
       The door is locked.
     }
   }
+}
+power take door {
+    respond {
+        You can't take the door. It's a door.
+    }
 }
 
 power hint {

@@ -307,6 +307,10 @@
             this.historyPosition++;
             this.enteredText = this.getHistoryCommands()[this.historyPosition];
             this.cursorPosition = this.enteredText.length;
+          } else {
+            this.historyPosition = this.history.length;
+            this.enteredText = "";
+            this.cursorPosition = 0;
           }
       }
       return this.render();

@@ -23,6 +23,9 @@ power observe {
     trying to get the door ahead of you open.
   }
 }
+power observe hallway {
+    synonym observe;
+}
 
 power observe terminal {
   respond {
@@ -111,6 +114,11 @@ power open door {
       The door is locked.
     }
   }
+}
+power take door {
+    respond {
+        You can't take the door. It's a door.
+    }
 }
 
 power hint {

@@ -191,6 +191,11 @@ class TextField extends Backbone.View
                     @historyPosition++
                     @enteredText = @getHistoryCommands()[@historyPosition]
                     @cursorPosition = @enteredText.length
+                else
+                    # If we're at the end of history, set a blank line for a new command.
+                    @historyPosition = @history.length
+                    @enteredText = ""
+                    @cursorPosition = 0
 
         # Update rendered text.
         @render()

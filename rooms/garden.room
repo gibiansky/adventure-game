@@ -49,6 +49,13 @@ power observe pond {
         Somehow, it smiles... and waits.
     }
 }
+power observe fountain {
+    respond {
+        There is no fountain, but there is a pond!
+    }
+
+    synonym observe pond;
+}
 power take pond {
     respond {
         You try to take the pond, but for some reason the water just slips
@@ -546,4 +553,58 @@ power hint {
     give food koi
     open door
   }
+}
+
+power take seaweed {
+    respond {
+        As you reach in to grab some seaweed, the koi growls at you
+        aggressively. Maybe you should let the territorial koi keep the
+        seaweed.
+    }
+}
+
+power take door {
+    respond {
+        You can't take the door. It's attached to the walls.
+    }
+}
+
+power take glass {
+    respond {
+        You can't pick up the glass walls, no matter how hard you try.
+    }
+}
+
+power observe glass {
+    respond {
+        The walls around you are made partially of glass, and there is a large
+        glass revolving door to one side.
+    }
+}
+
+power take hatchet {
+    if-item "Hatchet" {
+        respond {
+            You already have the hatchet.
+        }
+    } {
+        respond {
+            Where did you find a hatchet? There is no hatchet.   
+        }
+    }
+}
+
+power give food {
+    respond {
+        <span class="error">error: invalid format. format: "give thing target".</span>
+    }
+}
+power give fish food {
+    synonym give food;
+}
+power give koi fish food {
+    synonym give food;
+}
+power give koi food {
+    synonym give food;
 }
