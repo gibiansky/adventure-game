@@ -364,10 +364,20 @@ power open table {
         The table isn't closed, and has no drawers. You can't open this table.
     }
 }
+power take goats {
+    respond {
+        You can't take the goats.
+    }
+}
+
+power take goat {
+    synonym take goats;
+}
 
 power observe goats {
     respond {
-        You can't take the goats.
+        The goats are unobservable. You will forget about the goats between the
+        hours of now and forever. Do not even think about the goats.
     }
 }
 power observe goat {
