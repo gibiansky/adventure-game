@@ -100,7 +100,7 @@ power type quack-quack-I-vant-to-suck-your-blood-quack {
     gain-item "Key";
 }
 power type quack-quack-i-vant-to-suck-your-blood-quack {
-    synonym type quack-quack-i-vant-to-suck-your-blood-quack;
+    synonym type quack-quack-I-vant-to-suck-your-blood-quack;
 }
 
 
