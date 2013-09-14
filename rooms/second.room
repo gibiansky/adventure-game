@@ -233,6 +233,11 @@ power open gate {
     lose-item "Goat";
     lose-item "Cell Phone";
 
+    lose call {
+        You discard your cell phone, and can no longer '_' anyone or anything.
+        You are alone. Alone, forever. Alone, with a phone. Good luck.
+    }
+
     move-to garden;
   } {
     respond {

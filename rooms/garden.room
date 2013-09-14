@@ -243,6 +243,12 @@ power observe pedestal {
     }
 }
 
+power observe minutia {
+    respond {
+        Nothing to see here.
+    }
+}
+
 power observe painting {
     respond {
         It's just a bizarre painting.
