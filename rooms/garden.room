@@ -418,6 +418,9 @@ power take fish food {
 power take food {
   synonym take fish food;
 }
+power take fishfood {
+  synonym take fish food;
+}
 power take can {
     synonym take fish food; 
 }
@@ -450,6 +453,9 @@ power give fish food koi {
     }
 }
 power give food koi {
+  synonym give fish food koi;
+}
+power give fishfood koi {
   synonym give fish food koi;
 }
 power give food fish {
@@ -586,6 +592,12 @@ power observe glass {
         The walls around you are made partially of glass, and there is a large
         glass revolving door to one side.
     }
+}
+power observe wall {
+    synonym observe glass;
+}
+power observe walls {
+    synonym observe glass;
 }
 
 power take hatchet {

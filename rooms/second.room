@@ -27,9 +27,21 @@ power observe table {
     The table in the middle of the room has a bunch of things messilly
     scattered around it. There seem to be several postcards scattered around,
     all of them with pictures of goats. Some of the goats have very brightly
-    colored military coats. You also notice a blood-stained napkin, a note, and
-    a cell phone with a broken screen.
+    colored military coats.
+  }
 
+  if-item "Cell Phone" {
+    respond {
+        You also notice a blood-stained napkin and a note.
+    }
+  } {
+    respond {
+        You also notice a blood-stained napkin, a note, and a cell phone with a
+        broken screen.
+    }
+  }
+
+  respond {
     Something strange happened here... maybe examining these items in detail will help.
 
     Remember - you are allowed to use outside resources. Google, as well as the
@@ -268,28 +280,13 @@ power call 858-751-GOAT {
     gain-item "Goat";
   }
 }
-
-power call 858-751-4628 {
-  if-item "Goat" {
-    respond {
-      You've already called this number. There are no more goats.
-    }
-  } {
-    respond {
-      You manage to call the number... and within seconds of you dialing, a horde
-      of goats barrels through the door. They devour everything in their way,
-      including the table, gate, garden, and pretty much everything else
-      excluding you. One of them attempts to eat your pants, but you manage to
-      fend it off.
-
-      The path to the garden is clear, and you can open the gate. You decide to
-      keep a goat as a souvenier, or in case you want to rent it out to
-      someone.
-    }
-
-    gain-item "Goat";
-  }
+power call 858-751-goat {
+    synonym call 858-751-GOAT;
 }
+power call 858-751-4628 {
+    synonym call 858-751-GOAT;
+}
+
 power call 415-642-7170 {
     respond {
         You're on the right track, but on the wrong website. Go to the specific
@@ -308,6 +305,21 @@ power call 919-442-8005 {
     }
 }
 
+power call 123-456-789 {
+    respond {
+        The cell phone glows green, beeps a bit, and then intones in a quiet
+        monotone: "Typing in random numbers won't help. There is no salvation.
+        The garden will prevail. Find the URL you need and go there." It then
+        smiles at you and turns off again.
+    }
+}
+
+power call gate {
+    respond {
+        The gate doesn't pick up the phone.
+    }
+}
+
 power observe garden {
   respond {
     The garden beyond the gate is incredibly overgrown. You can't see
@@ -317,6 +329,11 @@ power observe garden {
     can't come to a decisive conclusion. You think it's probably blue, just
     like your jacket is green. Because, you think, that's what color gardens are. Blue.
   }
+}
+power take gate {
+    respond {
+        The gate is part of the room. How do you expect to take it?
+    }
 }
 
 power observe gate {
@@ -397,13 +414,16 @@ power hint {
   } {
     What was the gardener trying to do? Finish it for him.
   } {
+    Make sure you've read the note and napkin text carefully.
+  } {
     You probably want to rent out some goats.
   } {
-    Use Google to find the goat rental website.
+    There's a URL for you somewhere.
   } {
     Use the cell phone on the table to rent a goat. You need to pick up the cell phone.
   } {
-    Call the number on the goat rental website using the call command.
+    Call the number on the goat rental website using the call command. The goat
+    rental website is written on the napkin.
   } {
     take cell phone
     call 858-751-GOAT
@@ -413,5 +433,49 @@ power hint {
 power take medal {
     respond {
         There is no medal to take.
+    }
+}
+
+power observe lawnmower {
+    respond {
+        There seem to be some burnt-out machines sitting near and in front of the
+        gate. Upon further investigation, you realize that they're broken
+        lawnmowers. One of them is smoking gently, and some fuel is leaking out of
+        another. Three more seem to be charred, and yet another one has a rose
+        growing out of its fuel tank. That garden must be truly intense. I wouldn't
+        want to get on the bad side of that garden, honestly.
+    }
+}
+power observe lawnmowers {
+    synonym observe lawnmower;
+}
+
+power take lawnmower {
+    respond {
+        You try to pick up one of the lawnmowers and stuff it in your pocket,
+        but it turns out that your pocket is nowhere near big enough to fit it.
+        You'd need to be Devon to carry a lawnmower in your pocket.
+    }
+}
+power take lawnmowers {
+    synonym take lawnmower;
+}
+
+power take rose {
+    respond {
+        The rose is stuck in the fuel tank of a lawnmower, and covered in
+        gasoline. You don't want to take it.
+    }
+}
+power observe rose {
+    respond {
+        The rose is stuck in the fuel tank of a lawnmower, and covered in
+        gasoline.
+    }
+}
+
+power take garden {
+    respond {
+        You can't even get in to the garden, much less take it.
     }
 }

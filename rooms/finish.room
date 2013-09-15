@@ -43,7 +43,8 @@ power observe picture {
   } {
     respond {
       You have two pieces of the picture. You should probably collect the last
-      piece. The first two have "GLA" and "SSCE" scrawled on them in the back.
+      piece, which is hanging on the wall in front of you. The first two have
+      "GLA" and "SSCE" scrawled on them in the back.
 
       You can look at them <a href="/static/pictures/encoded.part1">here</a> and <a href="/static/pictures/encoded.part2">here</a>.
     }
